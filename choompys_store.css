@@ -1,0 +1,31 @@
+.heading {
+  font-size: 36px;
+}
+
+hr {
+  height:3px;
+  border-width:0;
+  background-color:#212172;
+  width:50%;}
+
+.cost {
+  color:#0d746b;
+  font-size:20px;
+}
+
+.product {
+  color: darkred;
+  font-size:30px;
+}
+
+h3 {
+  color:darkgreen;
+  font-size:25px;}
+
+.title {
+  color:purple;
+  font-size:60px;}
+
+.subheading {
+  color:darkgreen;
+  font-size:33px;}
