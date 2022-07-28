@@ -1,0 +1,26 @@
+.center {display: block;
+		margin-left: auto;
+		margin-right: auto;}
+
+a {color:white;}
+
+p {color:white;
+	font-size: 25px;}
+h1 {color:white;
+	font-size: 40px;}
+ul {color:white;
+	font-size: 25px;}
+table {font-size: 25px;
+	color:white;
+	border:2px solid lightgreen;}
+td {border-width: 1px;
+	border-style: solid;
+	border-color: lightgreen;
+	vertical-align: center;}
+th {border-width: 1px;
+	border-style: solid;
+	border-color: lightgreen;}
+.red {color:red;}
+div {background-color: green;}
+.noborder {border-style: none;
+		font-size: 20px;}
