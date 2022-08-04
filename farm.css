@@ -34,4 +34,10 @@ h5, h4 {color:white;}
     position: absolute;
     padding: 10px;
     box-shadow: -15px 10px 5px #00000070;
+    text-align: left;
+    font-weight: normal;
+    display: none;
+}
+th:hover .dropdown {
+    display: block;
 }
