@@ -25,3 +25,7 @@ h5, h4 {color:white;}
     padding: 10px;
     margin: 10px;
 }
+#form {
+    padding: 10px;
+    width: fit-content;
+}
