@@ -20,3 +20,8 @@ div {background-color: green;}
 .noborder {border-style: none;
 		font-size: 20px;}
 h5, h4 {color:white;}
+.rightside {
+    float: right;
+    padding: 10px;
+    margin: 10px;
+}
