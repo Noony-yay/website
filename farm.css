@@ -30,3 +30,8 @@ h5, h4 {color:white;}
     width: fit-content;
     margin: 10px;
 }
+.dropdown {
+    position: absolute;
+    padding: 10px;
+    box-shadow: -15px 10px 5px #00000070;
+}
