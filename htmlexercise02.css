@@ -1,0 +1,32 @@
+html, body, .full {
+    height: 100%;
+    width: 100%;
+}
+
+.image {
+    width: 200px;
+    height: 250px;
+}
+
+.full td {
+    text-align: center;
+}
+.absolute {
+    position: absolute;
+    text-align: center;
+    height: 30px;
+    width: 200px;
+    padding: 110px 0;
+    background-color: #a9a9a9b8;
+    opacity: 0%;
+}
+
+.thecells:hover .absolute {
+    opacity: 75%;
+    transition: 1s;
+}
+
+.thecells {
+    width: 200px;
+    height: 250px;
+}
