@@ -17,9 +17,13 @@ td,th {font-size: 25px;
 	color:white;
 	border:1px solid lightgreen;}
 div {background-color: green;}
-.noborder {border-style: none;
-		font-size: 20px;}
-h5, h4 {color:white;}
+.noborder {
+    border-style: none;
+	font-size: 20px;
+}
+h5, h4 {
+    color:white;
+}
 .rightside {
     float: right;
     padding: 10px;
