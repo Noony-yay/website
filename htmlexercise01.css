@@ -1,0 +1,30 @@
+.purple {
+   background-color: purple;
+}
+.green {
+    background-color: green;
+}
+.half {
+    height: 50%;
+}
+.all {
+    height: 100%;
+    width: 100%;
+}
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+}
+.color {
+    background-color: yellow;
+    text-align: center;
+    width: 10%;
+    height: 10%;
+    border-radius: 10px;
+    display: none;
+}
+.half:hover .color {
+    display: table-cell;
+}
