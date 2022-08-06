@@ -20,7 +20,7 @@ body {
 .color {
     background-color: yellow;
     text-align: center;
-    width: 10%;
+    width: 0%;
     height: 0%;
     border-radius: 10px;
     opacity: 0%;
@@ -31,4 +31,5 @@ body {
     opacity: 100%;
     transition: 1s;
     height: 10%;
+    width: 10%
 }
