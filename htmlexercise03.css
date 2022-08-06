@@ -1,0 +1,45 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    background-color: purple;
+}
+.card {
+    background-color: yellow;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    margin: auto;
+}
+.card-back {
+    background-color: green;
+    width: 0%;
+    height: 100%;
+    border-radius: 15px;
+    display: none;
+}
+table {
+    width: 100%;
+    height: 100%;
+}
+
+.card-wrapper:hover .card{
+    width: 0%;
+    transition: 1s;
+    visibility: hidden;
+}
+
+.card-wrapper:hover .card-back{
+    width: 100%;
+    transition: 1s;
+    transition-delay: 1s;
+    display: block;
+}
+
+.card-wrapper {
+    width: 100%;
+    height: 300px;
+}
