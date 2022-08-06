@@ -17,18 +17,13 @@ html, body, .full {
     height: 30px;
     width: 200px;
     padding: 110px 0;
-    background-color: #a9a9a9b8;
+    background-color: #464646b8;
     opacity: 0%;
-}
-.text {
-    opacity: 0%;
+    color: white;
 }
 
-.absolute:hover {
-    opacity: 75%;
-    transition: 1s;
-}
-.absolute:hover .text {
+.absolute:hover
+{
     opacity: 100%;
     transition: 1s;
 }
