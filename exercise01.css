@@ -1,0 +1,21 @@
+.button {
+    background-color: green;
+    border-radius: 10px;
+    height: 200px;
+    width: 300px;
+    margin: auto;
+}
+.text {
+    margin: auto;
+    font-size: 20px;
+    width: fit-content;
+    padding-top: 90px;
+}
+.box {
+    background-color: purple;
+    height: 200px;
+    width: 300px;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
