@@ -1,0 +1,31 @@
+.heading {
+    text-align: center;
+}
+body {
+    font-family: arial;
+}
+.preview {
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+}
+.menu-button {
+    background-color: #6464ff;
+    color: white;
+    border-radius: 10px;
+    height: 60px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+}
+.menu-button-text {
+    text-align: center;
+    width: 100%;
+}
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
