@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+.twohalfscontainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.half {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+.tophalf {
+    background-color: lightblue;
+}
+.bottomhalf {
+    background-color: purple;
+}
+.button {
+    height: 50px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: 1s;
+    text-align: center;
+}
+#topbutton {
+    box-shadow: 10px 10px 10px #337389a6;
+    background-color: green;
+}
+#bottombutton {
+    box-shadow: 10px 10px 10px #280128a6;
+    background-color: #39019b;
+    color: white;
+    opacity: 0%;
+}
+#all {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: 7s;
+}
+.stopit-container {
+    background-color: yellow;
+    box-shadow: 10px 10px 10px #363636a6;
+}
