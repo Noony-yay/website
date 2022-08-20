@@ -13,5 +13,5 @@ function coronaDrag(coronaWrapper) {
     coronaWrapper.onclick = '';
 }
 function disappear(coronaWrapper) {
-    coronaWrapper.outerHTML = '';
+    coronaWrapper.style.opacity = '0%';
 }
