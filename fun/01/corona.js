@@ -10,6 +10,7 @@ function coronaDrag(coronaWrapper) {
     var newInner = '<img src="coronaWithMask.png" class="corona-image"/>';
     coronaWrapper.innerHTML = newInner;
     setTimeout(disappear, 4000, coronaWrapper);
+    coronaWrapper.onclick = '';
 }
 function disappear(coronaWrapper) {
     coronaWrapper.outerHTML = '';
