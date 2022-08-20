@@ -6,3 +6,11 @@ function coronaClick(coronaWrapper) {
     newOuter += '</div></div>';
     coronaWrapper.outerHTML = newOuter;
 }
+function coronaDrag(coronaWrapper) {
+    var newInner = '<img src="coronaWithMask.png" class="corona-image"/>';
+    coronaWrapper.innerHTML = newInner;
+    setTimeout(disappear, 4000, coronaWrapper);
+}
+function disappear(coronaWrapper) {
+    coronaWrapper.outerHTML = '';
+}
