@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+}
+body, html, .all {
+    height: 100%;
+}
+.all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.board {
+    background-image: url(board.jpg);
+     width: 714px;
+     height: 723px;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+}
+.line {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+.peg {
+    width: 65px;
+    height: 65px;
+    background-image: url(peg.png)
+}
