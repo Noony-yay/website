@@ -26,5 +26,9 @@ body, html, .all {
 .peg {
     width: 65px;
     height: 65px;
-    background-image: url(peg.png)
+    background-image: url(peg2.png)
+}
+.empty-slot {
+    width: 65px;
+    height: 65px;
 }
