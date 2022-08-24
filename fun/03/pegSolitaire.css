@@ -3,6 +3,7 @@ body {
 }
 body, html, .all {
     height: 100%;
+    width: 100%;
 }
 .all {
     display: flex;
@@ -11,24 +12,28 @@ body, html, .all {
 }
 .board {
     background-image: url(board.jpg);
-     width: 714px;
-     height: 723px;
-     display: flex;
-     flex-direction: column;
-     gap: 15px;
-     justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 470px;
+    max-height: 500px;
+    padding: 15%;
 }
 .line {
     display: flex;
     justify-content: center;
-    gap: 16px;
 }
 .peg {
-    width: 65px;
-    height: 65px;
-    background-image: url(peg2.png)
 }
 .empty-slot {
-    width: 65px;
-    height: 65px;
+}
+.slot {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+.slot img {
+    max-width: 100%;
 }

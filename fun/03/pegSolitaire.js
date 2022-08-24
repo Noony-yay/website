@@ -58,8 +58,8 @@ function drop(event) {
     var middleId = getMiddleId(idSource, idTarget);
     if (middleId != '') {
         target.outerHTML = '<div id="' + idTarget + '" class="peg" draggable="true" ondragstart="dragStart(event);"></div>';
-        source.outerHTML = '<div id="' + idSource + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"></div>';
+        source.outerHTML = '<div id="' + idSource + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
         document.getElementById(middleId).outerHTML =
-            '<div id="' + middleId + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"></div>';
+            '<div id="' + middleId + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
     }
 }
