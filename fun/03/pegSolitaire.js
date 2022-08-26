@@ -2,7 +2,7 @@ function allowDrop(event) {
     event.preventDefault();
 }
 function dragStart(event) {
-    event.dataTransfer.setData("text", event.target.id);
+    event.dataTransfer.setData("text", event.target.parentElement.id);
 }
 function getMiddleId(idSource, idTarget) {
     var sourceRow = parseInt(idSource[4]);
@@ -52,14 +52,14 @@ function getMiddleId(idSource, idTarget) {
 function drop(event) {
     event.preventDefault();
     var idSource = event.dataTransfer.getData("text");
-    var target = event.target;
+    var target = event.target.parentElement;
     var idTarget = target.id;
     var source = document.getElementById(idSource);
     var middleId = getMiddleId(idSource, idTarget);
     if (middleId != '') {
-        target.outerHTML = '<div id="' + idTarget + '" class="peg" draggable="true" ondragstart="dragStart(event);"></div>';
-        source.outerHTML = '<div id="' + idSource + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
+        target.outerHTML = '<div id="' + idTarget + '" class="peg slot" draggable="true" ondragstart="dragStart(event);"><img src="peg2.png"/></div>';
+        source.outerHTML = '<div id="' + idSource + '" class="empty-slot slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
         document.getElementById(middleId).outerHTML =
-            '<div id="' + middleId + '" class="empty-slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
+            '<div id="' + middleId + '" class="empty-slot slot" ondragover="allowDrop(event);" ondrop="drop(event);"><img src="emptySlot.png"/></div>';
     }
 }
