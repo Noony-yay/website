@@ -1,0 +1,517 @@
+'use strict';
+
+const GUESS_LEN = 5;
+const NUM_GUESSES = 6;
+
+var allowedWords = [];
+var curRow = 0;
+var curBox = 0;
+var todaysWord;
+var todaysNum = 0;
+var lastCompletedWordNum;
+var stats;
+var historicDate;
+var hardMode;
+var transferred;  // Whether state has been ported from the old site.
+
+function niceAlert(text) {
+  $('#alert-text').text(text);
+  $('#alert').css('opacity', 1).show();
+  setTimeout(() => {
+    $('#alert').animate({opacity: 0}, {complete: () => $('#alert').hide()});
+  }, 2500);
+}
+
+function storeState() {
+  var curGuesses = [];
+  for (var i = 0; i < curRow; ++i) {
+    curGuesses.push(getWordAtRow(i));
+  }
+  var state = {
+    lastCompletedWordNum: lastCompletedWordNum,
+    stats: stats,
+    hardMode: hardMode,
+    transferred: transferred,
+    curGuesses: curGuesses,
+    lastStartedWordNum: todaysNum,
+  };
+  const encodedState = encodeURIComponent(JSON.stringify(state));
+  document.cookie = 'state=' + encodedState + '; max-age=' + 60*60*24*365*10;
+}
+
+function loadState() {
+  const stateCookie = document.cookie
+      .split('; ')
+      .find(item => item.startsWith('state='));
+  var state;
+  if (typeof stateCookie == 'undefined') {
+    state = {}
+  } else {
+    const encodedState = stateCookie.substr(6);
+    state = JSON.parse(decodeURIComponent(encodedState));
+  }
+  lastCompletedWordNum = state.lastCompletedWordNum || -1;
+  stats = state.stats || [0, 0, 0, 0, 0, 0, 0];
+  hardMode = state.hardMode || false;
+  transferred = state.transferred || false;
+  const lastStartedWordNum = state.lastStartedWordNum || -1;
+  if (state.curGuesses && (lastStartedWordNum == todaysNum)) {
+    curRow = state.curGuesses.length;
+    for (let row = 0; row < curRow; ++row) {
+      for (let col = 0; col < GUESS_LEN; ++col) {
+        $('#box-' + row + '-' + col).text(state.curGuesses[row][col]);
+      }
+      scoreGuessAtRow(row);
+    }
+  }
+}
+
+function addKeys(rowId, letters) {
+  for (var i = 0; i < letters.length; ++i) {
+    var key = $('<div class="key">');
+    key.attr('value', letters[i]);
+    key.text(letters[i]);
+    if (letters[i] == ' ') {
+      key.addClass('nokey');
+    }
+    $(rowId).append(key);
+  }
+}
+
+function addGuessRows() {
+  for (var nRow = 0; nRow < NUM_GUESSES; ++nRow) {
+    var row = $('<div class="guess-row">');
+    for (var nBox = 0; nBox < GUESS_LEN; ++nBox) {
+      var box = $('<div class="box">');
+      box.attr('id', 'box-'+nRow+'-'+nBox);
+      box.addClass('box-col-'+nBox);
+      row.append(box);
+    }
+    $('#guesses').append(row);
+  }
+}
+
+function letterKeyPress(key) {
+  if (curRow >= NUM_GUESSES) {
+    return;
+  }
+  if (curBox >= GUESS_LEN) {
+    return;
+  }
+  $('#box-'+curRow+'-'+curBox).text(key);
+  curBox++;
+}
+
+function backspaceKeyPress() {
+  if (curRow >= NUM_GUESSES) {
+    return;
+  }
+  if (curBox == 0) {
+    return;
+  }
+  $('#box-'+curRow+'-'+(curBox-1)).text('');
+  curBox--;
+}
+
+function isValidGuess(curWord) {
+  const ordinal = ['ראשונה', 'שניה', 'שלישית', 'רביעית', 'חמישית'];
+  for (var row = 0; row < curRow; ++row) {
+    for (var col = 0; col < GUESS_LEN; ++col) {
+      var curElem = $('#box-'+row+'-'+col);
+      if (curElem.hasClass('klum-box')) {
+        if (curWord.indexOf(curElem.text()) > -1) {
+          // Count number of occurrences in previous word.
+          var allowedOccurrences = 0;
+          for (var otherCol = 0; otherCol < GUESS_LEN; ++otherCol) {
+            var otherElem = $('#box-'+row+'-'+otherCol);
+            if (otherElem.text() == curElem.text()) {
+              if (otherElem.hasClass('bul-box') ||
+                  otherElem.hasClass('pgia-box')) {
+                ++allowedOccurrences;
+              }
+            }
+          }
+          // Count number of occurrences in curWord.
+          var actualOccurrences = 0;
+          for (var otherCol = 0; otherCol < GUESS_LEN; ++otherCol) {
+            if (curWord[otherCol] == curElem.text()) {
+              ++actualOccurrences;
+            }
+          }
+          if (allowedOccurrences == 0) {
+            niceAlert('הניחוש ”'+curWord+'“ סותר את הניחוש הקודם ”'+
+                      getWordAtRow(row)+'“ (מכיל את האות '+curElem.text()+"')");
+            return false;
+          }
+          if (actualOccurrences > allowedOccurrences) {
+            niceAlert('הניחוש ”'+curWord+'“ סותר את הניחוש הקודם ”'+
+                      getWordAtRow(row)+'“ (מכיל את האות '+curElem.text()+"' "+
+                      actualOccurrences+' פעמים, יותר מ-'+
+                      allowedOccurrences+' הפעמים המותרות)');
+            return false;
+          }
+        }
+      }
+      if (curElem.hasClass('bul-box')) {
+        if (curWord[col] != curElem.text()) {
+          niceAlert('הניחוש ”'+curWord+'“ סותר את הניחוש הקודם ”'+
+                    getWordAtRow(row)+'“ (האות ה'+ordinal[col]+' חייבת להיות '+
+                    curElem.text()+"')");
+          return false;
+        }
+      }
+      if (curElem.hasClass('pgia-box')) {
+        if (curWord[col] == curElem.text()) {
+          niceAlert('הניחוש ”'+curWord+'“ סותר את הניחוש הקודם ”'+
+                    getWordAtRow(row)+'“ (האות ה'+
+                    ordinal[col]+' אינה יכולה להיות '+curElem.text()+"')");
+          return false;
+        }
+        if (curWord.indexOf(curElem.text()) == -1) {
+          niceAlert('הניחוש ”'+curWord+'“ סותר את הניחוש הקודם ”'+
+                    getWordAtRow(row)+'“ (חייב להכיל את האות '+
+                    curElem.text()+"')");
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+function getWordAtRow(nRow) {
+  var word = '';
+  for (var i = 0; i < GUESS_LEN; ++i) {
+    word += $('#box-'+nRow+'-'+i).text();
+  }
+  return word;
+}
+
+function enterKeyPress() {
+  if (curRow >= NUM_GUESSES) {
+    return;
+  }
+  if (curBox < GUESS_LEN) {
+    niceAlert('חייבים לנחש מילה בת חמש אותיות')
+    return;
+  }
+  const curWord = getWordAtRow(curRow);
+  if (!allowedWords.includes(curWord) && curWord != todaysWord) {
+    niceAlert('מילה לא מוכרת');
+    return;
+  }
+  if (hardMode && !isValidGuess(curWord)) {
+    return;
+  }
+  const nBuls = scoreGuessAtRow(curRow);
+  if (curRow < NUM_GUESSES && nBuls < GUESS_LEN) {
+    // Move to next row.
+    curBox = 0;
+    curRow++;
+    if (!historicDate) {
+      storeState();
+    }
+    if (curRow < NUM_GUESSES) {
+      return;
+    }
+  }
+  lastCompletedWordNum = todaysNum;
+  if (curRow >= NUM_GUESSES) {
+    if (!historicDate) {
+      ++stats[NUM_GUESSES];
+    }
+    setTimeout(() => {showLossModal();}, 900);
+  } else {
+    // nBuls == GUESS_LEN
+    if (!historicDate) {
+      ++stats[curRow];
+    }
+    curRow = NUM_GUESSES;
+    setTimeout(() => {showWinModal();}, 900);
+  }
+  if (!historicDate) {
+    storeState();
+  }
+}
+
+function scoreGuessAtRow(row) {
+  var i;
+  var todaysLetters = Array.from(todaysWord);
+  var curElem;
+  var letter;
+  // Score buls.
+  var nBuls = 0;
+  for (var i = 0; i < GUESS_LEN; ++i) {
+    curElem = $('#box-'+row+'-'+i);
+    letter = curElem.text();
+    if (letter == todaysLetters[i]) {
+      ++nBuls;
+      curElem.addClass('bul-box');
+      $('.key[value="'+letter+'"]').removeClass('pgia-key').addClass('bul-key');
+      todaysLetters[i] = '+';
+    }
+  }
+  if (nBuls == GUESS_LEN) {
+    // Victory!
+    return nBuls;
+  }
+
+  // Score pgias and klums.
+  for (var i = 0; i < GUESS_LEN; ++i) {
+    curElem = $('#box-'+row+'-'+i);
+    if (curElem.hasClass('bul-box')) {
+      continue;
+    }
+    letter = curElem.text();
+    var correctPos = todaysLetters.indexOf(letter);
+    if (correctPos > -1) {
+      curElem.addClass('pgia-box');
+      todaysLetters[correctPos] = '-';
+      if (!$('.key[value="'+letter+'"]').hasClass('bul-key')) {
+        $('.key[value="'+letter+'"]').addClass('pgia-key');
+      }
+    } else {
+      curElem.addClass('klum-box');
+      if (!$('.key[value="'+letter+'"]').hasClass('bul-key') &&
+          !$('.key[value="'+letter+'"]').hasClass('pgia-key')) {
+        $('.key[value="'+letter+'"]').addClass('klum-key');
+      }
+    }
+  }
+
+  return nBuls;
+}
+
+function showWinModal() {
+  var shareData = {
+    url: 'https://bulmila.com',
+    title: 'בול מילה',
+    text: 'ניצחתי במשחק בול מילה מס\' ' + todaysNum,
+  };
+  if (hardMode) {
+    shareData.text += ' במצב אתגר';
+  }
+  shareData.text += ':\n';
+  for (var row = 0; row < NUM_GUESSES; ++row) {
+    var nBuls = 0;
+    shareData.text += '\u200F';  // Right-to-left mark
+    for (var col = 0; col < GUESS_LEN; ++col) {
+      const curBox = $('#box-'+row+'-'+col);
+      if (curBox.hasClass('bul-box')) {
+        shareData.text += '🟩';
+        nBuls++;
+      } else if (curBox.hasClass('pgia-box')) {
+        shareData.text += '🟨';
+      } else {
+        shareData.text += '⬜';
+      }
+    }
+    shareData.text += '\u200F';  // Right-to-left mark
+    shareData.text += '\n';
+    if (nBuls == GUESS_LEN) {
+      break;
+    }
+  }
+  shareData.text += '\n';
+  showModal(
+      'ניצחון!',
+      ['חיזרו אלינו מחר למשחק נוסף.',
+       'רוצים אתגר נוסף? נסו את <a target="_blank" href="https://milotayim.com/">מילותיים</a>!'],
+      shareData,
+      true);
+}
+
+function showLossModal() {
+  showModal('הפסדתם :(',
+      ['התשובה הנכונה היא ' + todaysWord + '.',
+       'לא נורא, נסו שוב עם מילה חדשה מחר.']);
+}
+
+function showModal(title, htmlItems, shareData, showStats) {
+  var modal = $('<div class="modal">');
+  var modalContent = $('<div class="modal-content">');
+  var closeButton = $('<div class="modal-close-button">');
+  closeButton.text('×');
+  closeButton.click(event => {$('.modal').hide();});
+  modalContent.append(closeButton);
+  modalContent.append($('<div class="modal-title">').text(title));
+  for (var i=0; i < htmlItems.length; ++i) {
+    modalContent.append($('<div class="modal-text">').html(htmlItems[i]));
+  }
+  if (typeof showStats != 'undefined' && showStats) {
+    modalContent.append(getStatsChart());
+  }
+  if (typeof shareData != 'undefined') {
+    var shareButton = $('<div class="modal-button">');
+    shareButton.text('שיתוף');
+    shareButton.click(event => {
+      if (navigator.canShare && navigator.canShare({text: 'myText'})) {
+        navigator.share(shareData);
+      } else {
+        navigator.clipboard.writeText(shareData.text + shareData.url).then(
+          () => { niceAlert('הטקסט הועתק. עברו לאפליקציה אחרת ובחרו "הדבק".'); },
+          () => { niceAlert('לא ניתן לשתף בדפדפן זה.')}
+        )
+      }
+    });
+    modalContent.append(shareButton);
+  }
+  modal.append(modalContent);
+  $('body').append(modal);
+}
+
+function getStatsChart() {
+  const labels = ['1', '2', '3', '4', '5', '6', '∞'];
+  var maxVal = Math.max(...stats);
+  if (maxVal < 1) maxVal = 1;
+  var mean = 0;
+  var mean2 = 0;
+  var count = 0;
+  for (var i = 0; i < stats.length; ++i) {
+    mean += (i+1) * stats[i];
+    mean2 += (i+1) * (i+1) * stats[i];
+    count += stats[i];
+  }
+  mean /= count;
+  mean2 /= count;
+  var elem = $('<div class="stats-wrapper">');
+  elem.append($('<div class="stats-title">').text('הסטטיסטיקה שלך'));
+  var numericStats = $('<div class="stats-numeric">');
+  const statsTableData = [
+      ['משחקים', count],
+      ['ממוצע', mean.toFixed(2)],
+  ]
+  if (count >= 5) {
+    // Compute standard deviation.
+    const variance = mean2 - mean*mean;
+    const std = Math.sqrt(variance);
+    statsTableData.push(['סטיית תקן', std.toFixed(2)]);
+    if (count >= 20) {
+      // Compute confidence interval.
+      const ci_width = 1.96 * Math.sqrt(variance / (count - 1));
+      const conf_int = '\u200e[' + (mean - ci_width).toFixed(1) + ', '
+                                 + (mean + ci_width).toFixed(1) + ']\u200e';
+      statsTableData.push(['רווח סמך 95%', conf_int]);
+    }
+  }
+  for (var i = 0; i < statsTableData.length; ++i) {
+    numericStats.append($('<div>')
+        .css('grid-row', 1)
+        .css('grid-column', i+1)
+        .addClass('stats-numeric-header')
+        .text(statsTableData[i][0]));
+    numericStats.append($('<div>')
+        .css('grid-row', 0)
+        .css('grid-column', i+1)
+        .addClass('stats-numeric-value')
+        .text(statsTableData[i][1]));
+  }
+  elem.append(numericStats);
+  var table = $('<div class="stats-histogram">');
+  for (var i = 0; i < labels.length; ++i) {
+    table.append($('<div>')
+        .css('grid-row', i+1)
+        .css('grid-column', 1)
+        .addClass('stats-num-guesses')
+        .text(labels[i]));
+    var child = $('<div>')
+        .css('grid-row', i+1)
+        .css('grid-column', 0)
+        .addClass('stats-bar-container');
+    var bar = $('<div>').addClass('stats-bar');
+    const width = Math.ceil(100 * stats[i] / maxVal);
+    bar.width(width + '%');
+    bar.append($('<div class="stats-bar-text">').text(stats[i]))
+    child.append(bar);
+    table.append(child);
+  }
+  elem.append(table);
+  return elem;
+}
+
+function virtualKeyPress(event) {
+  const key = $(event.target).attr('value');
+  switch (key) {
+    case ' ':
+      return;  // one of the spacer keys
+    case '⏎':
+      enterKeyPress();
+      return;
+    case '⌦':
+      backspaceKeyPress();
+      return;
+    default:
+      letterKeyPress(key);
+      return;
+  }
+}
+
+function keyboardKeyPress(event) {
+  if (event.which >= 0x5d0 && event.which <= 0x5ea) {
+    // Hebrew character
+    var key = String.fromCharCode(event.which);
+    const toNonFinal = {'ם': 'מ', 'ך': 'כ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ'};
+    if (typeof toNonFinal[key] != 'undefined') {
+      key = toNonFinal[key];
+    }
+    letterKeyPress(key);
+    return;
+  }
+  if (event.which == 13) {
+    enterKeyPress();
+    return;
+  }
+}
+
+function keyboardKeyDown(event) {
+  if (event.which == 8) {
+    backspaceKeyPress();
+    return;
+  }
+}
+
+function openSettingsDialog() {
+  $('#settings').show();
+}
+
+function startGame() {
+  $('#instructions').hide();
+  $(document).keypress(keyboardKeyPress);
+  $(document).keydown(keyboardKeyDown);
+  $('.key').click(virtualKeyPress);
+  $('#settings-button').click(() => {$('#settings').show();});
+  $('#settings-ok-button').click(() => {$('#settings').hide();});
+  $('#switch-hard-mode').prop('checked', hardMode);
+  $('#switch-hard-mode').change(function() {
+    hardMode = this.checked;
+    storeState();
+  });
+}
+
+function getUrlParams() {
+  historicDate = new URL(window.location.href).searchParams.get('date');
+}
+
+$(document).ready(() => {
+  addGuessRows();
+  addKeys('#keybd-row1', 'פ  וטארק ');
+  addKeys('#keybd-row2', 'לחיעכגדש');
+  addKeys('#keybd-row3', '⏎תצמנהבסז⌦');
+  getUrlParams();
+  const todaysWordUrl = (
+      historicDate ? 'todays_word?date=' + historicDate : 'todays_word');
+  $.get('allwords.txt').done(words => {
+    allowedWords = words.split(/\r?\n/);
+    $.getJSON(todaysWordUrl).done(data => {
+      todaysWord = data.todaysWord;
+      todaysNum = data.todaysNum;
+      loadState();
+      if (todaysNum <= lastCompletedWordNum && !historicDate) {
+        $('#instructions').hide();
+        $('#stats-container').append(getStatsChart());
+        $('#already-played').show();
+      }
+      $('#instructions').click(startGame);
+    });
+  });
+});
