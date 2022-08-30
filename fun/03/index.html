@@ -5,10 +5,18 @@
 		<link rel="stylesheet" type="text/css" href="pegSolitaire.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="pegSolitaire.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
 	</head>
 
 	<body>
 		<div class="all">
+			<div id="gameOver">
+				<div id="gameOverTitle"></div>
+				<div class="enter"></div>
+				<div id="gameOverText"></div>
+			</div>
 			<div class="board">
 				<div class="slot"></div>
 				<div class="slot"></div>
@@ -59,6 +67,9 @@
 				<div id="slot75" class="peg slot" draggable="true" ondragstart="dragStart(event);"><img src="peg2.png"></div>
 				<div class="slot"></div>
 				<div class="slot"></div>
+			</div>
+			<div class="pegs-left" id="pegs-left">
+				You have 32 pegs left!
 			</div>
 		</div>
 	</body>
