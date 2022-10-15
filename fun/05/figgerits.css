@@ -1,0 +1,20 @@
+html, body {
+    background-color: #d1f4ff;
+    margin: 0;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
