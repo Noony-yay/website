@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    background-color: #ffa33a80;
+    margin: auto;
+}
+html {
+    background-color: #ffa1b1;
+}
+.box-from-the-right {
+	width: fit-content;
+    height: fit-content;
+    background-color: black;
+    position: absolute;
+    left: 25%;
+    bottom: 25%;
+    right: 25%;
+    top: 25%;
+    margin: auto;
+    animation-name: move-from-the-right;
+    animation-duration: 2s;
+    color: white;
+}
+.text-hello {
+    opacity: 0;
+    color: white;
+    font-size: 160px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+@keyframes move-from-the-right {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 25%;
+    }
+}
