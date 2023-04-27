@@ -29,4 +29,18 @@ html, body, .all {
     border-width: 1px;
     border-radius: 7px;
     background-color: lightblue;
+    font-family: 'Bona Nova', serif;
+    font-size: 17px;
+}
+.feedback {
+    width: 60%;
+    margin: 13px;
+    padding: 4px;
+    border-radius: 7px;
+}
+.wrong-answer {
+    background-color: #ff9090;
+}
+.right-answer {
+    background-color: #90e390;
 }
