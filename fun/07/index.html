@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>Question And Answer</title>
@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova:wght@700&display=swap" rel="stylesheet">
+    <script src="question-and-answer.js"></script>
 </head>
 <body>
     <div class="all">
@@ -14,10 +15,10 @@
             האין הטרומבון ישות מדהימה שאין כמותה? (יש לענות ב"כן" או "לא")
         </label> <br>
         <input type="text" id="y-or-n" name="y-or-n" class="input-answer" placeholder="כן או לא"> <br>
-        <button class="finished-button">
+        <button class="finished-button" onclick="answered">
             סיימתי לכתוב
         </button>
-        <div class="wrong-answer feedback">
+        <div class="wrong-answer feedback" id="wrong-answer">
             <div class="feedback-title">
                 טעות!!
             </div>
@@ -25,7 +26,7 @@
                 הו, האימה! האם הרגע אמרת שהטרומבון אינו ישות מדהימה שאין כמותה?? בושה וחרפה!
             </div>
         </div>
-        <div class="right-answer feedback">
+        <div class="right-answer feedback" id="right-answer">
             <div class="feedback-title">
                 נכון!!
             </div>
