@@ -14,10 +14,12 @@
         <label for="y-or-n" class="question">
             האין הטרומבון ישות מדהימה שאין כמותה? (יש לענות ב"כן" או "לא")
         </label> <br>
-        <input type="text" id="y-or-n" name="y-or-n" class="input-answer" placeholder="כן או לא"> <br>
-        <button class="finished-button" onclick="answered">
-            סיימתי לכתוב
-        </button>
+        <div id="form">
+            <input type="text" id="y-or-n" name="y-or-n" class="input-answer" placeholder="כן או לא"> <br>
+            <button class="finished-button" onclick="answered()">
+                סיימתי לכתוב
+            </button>
+        </div>
         <div class="wrong-answer feedback" id="wrong-answer">
             <div class="feedback-title">
                 טעות!!
@@ -32,6 +34,14 @@
             </div>
             <div class="feedback-text">
                 אכן, הטרמבון הוא הישות הנעלה והחשובה ביותר בכל הלבן, אפילו בכל היצור.
+            </div>
+        </div>
+        <div class="what feedback" id="what">
+            <div class="feedback-title">
+                מה?
+            </div>
+            <div class="feedback-text">
+                אתה לדבר מילים שאני לא מבין. מה אמרת?
             </div>
         </div>
     </div>

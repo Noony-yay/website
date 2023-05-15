@@ -15,17 +15,14 @@ html, body, .all {
     font-size: 27px;
 }
 .input-answer {
-    width: 50%;
-    height: 3%;
     border-width: 2px;
     font-family: 'Bona Nova', serif;
     font-size: 20px;
     text-align: center;
     border-radius: 7px;
+    margin-bottom: 10px;
 }
 .finished-button {
-    width: 50%;
-    height: 3%;
     border-width: 1px;
     border-radius: 7px;
     background-color: lightblue;
@@ -37,10 +34,14 @@ html, body, .all {
     margin: 13px;
     padding: 4px;
     border-radius: 7px;
+    display: none;
 }
 .wrong-answer {
     background-color: #ff9090;
 }
 .right-answer {
     background-color: #90e390;
+}
+.what {
+    background-color: #ffcd4f;
 }
