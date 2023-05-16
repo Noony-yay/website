@@ -1,6 +1,30 @@
 var words = [['hello', 'שלום'],
              ['ice cream', 'גלידה'],
-             ['water', 'מים']];
+             ['water', 'מים'],
+             ['book', 'ספר'],
+             ['life', 'חיים'],
+             ['man', 'איש'],
+             ['woman', 'אישה'],
+             ['time', 'זמן'],
+             ['year', 'שנה'],
+             ['week', 'שבוע'],
+             ['day', 'יום'],
+             ['thing', 'דבר'],
+             ['world', 'עולם'],
+             ['hand', 'יד'],
+             ['eye', 'עין'],
+             ['place', 'מקום'],
+             ['point', 'נקודה'],
+             ['number', 'מספר'],
+             ['group', 'קבוצה'],
+             ['problem', 'בעיה'],
+             ['I', 'אני'],
+             ['she', 'היא'],
+             ['he', 'הוא'],
+             ['it', 'זה'],
+             ['but', 'אבל'],
+             ['they', 'הם'],
+             ['or', 'או']];
 var selectedWord;
 function gid(id) {
     return document.getElementById(id);
