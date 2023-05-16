@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Question And Answer</title>
+    <link rel="stylesheet" type="text/css" href="english.css"/>
+    <script src="english.js"></script>
+</head>
+<body onload="randomWord();">
+    <div class="all">
+        <label for="translation" class="question">
+            מה התרגום של <span id="english-word"></span>?
+        </label> <br>
+        <div id="form">
+            <input type="text" id="translation" class="input-answer" placeholder="תרגום"> <br>
+            <button class="finished-button" id="finished-button" onclick="answered();">
+                סיימתי לכתוב
+            </button>
+        </div>
+        <div class="wrong-answer feedback" id="wrong-answer-container">
+            <div class="feedback-title">
+                טעות!
+            </div>
+            <div class="feedback-text">
+                התשובה הנכונה היא <span id="right-answer"></span>.
+            </div>
+        </div>
+        <div class="right-answer feedback" id="right-answer-container">
+            <div class="feedback-title">
+                נכון!
+            </div>
+            <div class="feedback-text"></div>
+        </div>
+    </div>
+</body>
+</html>
