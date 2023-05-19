@@ -8,7 +8,7 @@
     <script src="english.js"></script>
 </head>
 <body onload="randomWord();">
-    <div class="all">
+    <div class="all" id="all-beginning">
         <label for="translation" class="question">
             מה התרגום של <span id="english-word"></span>?
         </label> <br>
@@ -31,6 +31,15 @@
                 נכון!
             </div>
             <div class="feedback-text"></div>
+        </div>
+        <button class="continue-button" id="continue-button" onclick="again();">
+            המשך
+        </button>
+    </div>
+    <div class="all" id="all-end">
+        <div id="summary-title"></div>
+        <div id="summary-text">
+            צדקת  <span id="only"></span>ב-<span id="num-correct-questions"></span> מעשר השאלות!
         </div>
     </div>
 </body>

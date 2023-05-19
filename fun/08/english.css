@@ -10,6 +10,9 @@ html, body, .all {
     flex-direction: column;
     text-align: center;
 }
+#all-end {
+    display: none;
+}
 .question {
     font-size: 27px;
 }
@@ -39,6 +42,6 @@ html, body, .all {
 .right-answer {
     background-color: #90e390;
 }
-.what {
-    background-color: #ffcd4f;
+.continue-button {
+    display: none;
 }

@@ -26,8 +26,18 @@ var words = [['hello', 'שלום'],
              ['they', 'הם'],
              ['or', 'או']];
 var selectedWord;
+var numCorrectAnswers = 0;
+var numQuestionsAsked = 0;
 function gid(id) {
     return document.getElementById(id);
+}
+
+function again() {
+    randomWord();
+    gid('finished-button').style.display = 'block';
+    gid('wrong-answer-container').style.display = 'none';
+    gid('right-answer-container').style.display = 'none';
+    gid('continue-button').style.display = 'none';
 }
 
 function getRandomInt(max) {
@@ -36,7 +46,7 @@ function getRandomInt(max) {
 function randomWord() {
     var englishWord = gid('english-word');
     selectedWord = words[getRandomInt(words.length)];
-    englishWord.innerHTML = selectedWord[0]
+    englishWord.innerHTML = selectedWord[0];
 }
 function answered() {
     gid('finished-button').style.display = 'none';
@@ -44,10 +54,28 @@ function answered() {
     if (answer == selectedWord[1]) {
         var rightAnswer = gid('right-answer-container');
         rightAnswer.style.display = 'block';
+        numCorrectAnswers += 1;
     }
     else {
         gid('right-answer').innerHTML = selectedWord[1];
         var wrongAnswer = gid('wrong-answer-container');
         wrongAnswer.style.display = 'block';
     }
+    gid('continue-button').style.display = 'block';
+    numQuestionsAsked +=1;
+    if (numQuestionsAsked == 10) {
+        finished();
+    }
+}
+function finished() {
+    gid('all-beginning').style.display = 'none';
+    gid('num-correct-questions').innerHTML = numCorrectAnswers;
+    if (numCorrectAnswers < 5) {
+        gid('summary-title').innerHTML = 'אויה!';
+        gid('only').innerHTML = 'רק ';
+    }
+    else {
+        gid('summary-title').innerHTML = 'כל הכבוד!';
+    }
+    gid('all-end').style.display = 'block';
 }
