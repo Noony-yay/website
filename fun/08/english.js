@@ -38,6 +38,7 @@ function again() {
     gid('wrong-answer-container').style.display = 'none';
     gid('right-answer-container').style.display = 'none';
     gid('continue-button').style.display = 'none';
+    gid('translation').value = '';
 }
 
 function getRandomInt(max) {
