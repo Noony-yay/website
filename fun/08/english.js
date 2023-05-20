@@ -45,8 +45,10 @@ function getRandomInt(max) {
 }
 function randomWord() {
     var englishWord = gid('english-word');
-    selectedWord = words[getRandomInt(words.length)];
+    var wordIndex = getRandomInt(words.length);
+    selectedWord = words[wordIndex];
     englishWord.innerHTML = selectedWord[0];
+    words.splice(wordIndex, 1);
 }
 function answered() {
     gid('finished-button').style.display = 'none';
