@@ -53,15 +53,18 @@ function randomWord() {
 function answered() {
     gid('finished-button').style.display = 'none';
     var answer = gid('translation').value;
+    var cell = gid('cell' + numQuestionsAsked);
     if (answer == selectedWord[1]) {
         var rightAnswer = gid('right-answer-container');
         rightAnswer.style.display = 'block';
+        cell.style.backgroundColor = '#00c300';
         numCorrectAnswers += 1;
     }
     else {
         gid('right-answer').innerHTML = selectedWord[1];
         var wrongAnswer = gid('wrong-answer-container');
         wrongAnswer.style.display = 'block';
+        cell.style.backgroundColor = '#e70000';
     }
     gid('continue-button').style.display = 'block';
     numQuestionsAsked +=1;
