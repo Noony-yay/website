@@ -9,9 +9,11 @@ html, body, .all {
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    font-family: 'Assistant', sans-serif;
 }
 #all-end {
     display: none;
+    background-color: #95d0ff;
 }
 #form {
     display: flex;
@@ -19,6 +21,7 @@ html, body, .all {
 }
 .question {
     font-size: 27px;
+    padding: 7px;
 }
 .input-answer {
     border-width: 2px;
@@ -48,4 +51,14 @@ html, body, .all {
 }
 .continue-button {
     display: none;
+}
+#summary-title {
+    font-size: 27px;
+}
+#summary-text {
+    font-size: 20px;
+}
+#num-correct-questions {
+    font-size: 27px;
+    font-weight: 550;
 }

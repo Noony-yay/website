@@ -6,14 +6,17 @@
     <title>Question And Answer</title>
     <link rel="stylesheet" type="text/css" href="english.css"/>
     <script src="english.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onload="randomWord();">
     <div class="all" id="all-beginning">
         <label for="translation" class="question">
             מה התרגום של <span id="english-word"></span>?
-        </label> <br>
+        </label>
         <div id="form">
-            <input type="text" id="translation" class="input-answer" placeholder="תרגום"> <br>
+            <input type="text" id="translation" class="input-answer" placeholder="תרגום">
             <button class="finished-button" id="finished-button" onclick="answered();">
                 סיימתי לכתוב
             </button>

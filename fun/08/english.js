@@ -77,5 +77,5 @@ function finished() {
     else {
         gid('summary-title').innerHTML = 'כל הכבוד!';
     }
-    gid('all-end').style.display = 'block';
+    gid('all-end').style.display = 'flex';
 }
