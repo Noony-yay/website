@@ -13,6 +13,10 @@ html, body, .all {
 #all-end {
     display: none;
 }
+#form {
+    display: flex;
+    flex-direction: column;
+}
 .question {
     font-size: 27px;
 }
