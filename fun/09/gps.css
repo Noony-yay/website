@@ -3,7 +3,12 @@ html, body, .all {
     height: 100%;
     margin: auto;
 }
-
+.all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 .cant {
     display: none;
 }
