@@ -8,7 +8,17 @@ html, body, .all {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Assistant', sans-serif;
 }
 .cant {
     display: none;
+    padding: 7px;
+    background-color: #ff6d6d;
+    border-radius: 5px;
+}
+.parameters-container {
+    background-color: #7fa9ff;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
 }
