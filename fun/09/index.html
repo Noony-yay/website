@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Question And Answer</title>
-    <link rel="stylesheet" type="text/css" href="english.css"/>
-    <script src="english.js"></script>
+    <title>GPS</title>
+    <link rel="stylesheet" type="text/css" href="gps.css"/>
+    <script src="gps.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body onload="randomWord();">
-
+<body onload="getLocation();">
+    <div class="all">
+        <div class="cant" id="cant">לא מצליח לאתר את מיקומך.</div>
+        <div class="parameters-container" id="parameter-container">
+            <div class="parameter">קו רוחב: <span id="latitude"></span></div>
+            <div class="parameter">קו אורך: <span id="longitude"></span></div>
+            <div class="parameter">דיוק: <span id="accuracy"></span> מטרים</div>
+        </div>
+    </div>
 </body>
 </html>
