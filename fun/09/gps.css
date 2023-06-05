@@ -22,3 +22,7 @@ html, body, .all {
     border-radius: 20px;
     text-align: center;
 }
+#arrow {
+    font-size: 150px;
+    rotate: 90deg;
+}

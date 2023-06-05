@@ -5,9 +5,10 @@ function gid(id) {
     return document.getElementById(id);
 }
 
-function getLocation() {
+function onLoad() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, cantLoad);
+        window.addEventListener('deviceorientation', handleOrientation, true);
     }
     else {
         cantLoad();
@@ -42,5 +43,5 @@ function handleOrientation(event) {
   const absolute = event.absolute;
   const alpha = event.alpha;
   gid('orientation').innerHTML = Math.round(alpha);
+  gid('arrow').style.rotate = (alpha - 90) + 'deg';
 }
-window.addEventListener("deviceorientation", handleOrientation, true);

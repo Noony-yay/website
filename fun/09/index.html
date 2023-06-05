@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body onload="getLocation(showPosition, cantLoad);">
+<body onload="onLoad();">
     <div class="all">
         <div class="cant" id="cant">לא מצליח לאתר את מיקומך.</div>
         <div class="parameters-container" id="parameter-container">
@@ -20,6 +20,7 @@
             <div class="parameter">מרחק עד לנקודה הבאה: <span id="distance"></span> מטרים</div>
             <div class="parameter"> סיבוב הטלפון: <span id="orientation"></span> מעלות</div>
         </div>
+        <div id="arrow">🠲</div>
     </div>
 </body>
 </html>
