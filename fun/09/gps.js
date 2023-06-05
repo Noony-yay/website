@@ -37,3 +37,10 @@ function getDistance(position) {
     distance = Math.round(distance);
     return distance;
 }
+
+function handleOrientation(event) {
+  const absolute = event.absolute;
+  const alpha = event.alpha;
+  gid('orientation').innerHTML = alpha;
+}
+window.addEventListener("deviceorientation", handleOrientation, true);
