@@ -41,6 +41,6 @@ function getDistance(position) {
 function handleOrientation(event) {
   const absolute = event.absolute;
   const alpha = event.alpha;
-  gid('orientation').innerHTML = alpha;
+  gid('orientation').innerHTML = Math.round(alpha);
 }
 window.addEventListener("deviceorientation", handleOrientation, true);
