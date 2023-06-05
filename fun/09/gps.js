@@ -46,5 +46,5 @@ function handleOrientation(event) {
   gid('orientation').innerHTML = Math.round(alpha);
   var beta = Math.atan2(latDistance, lngDistance);
   var degBeta = beta*(180/Math.PI);
-  gid('arrow').style.rotate = (alpha - (90 - degBeta) - 90) + 'deg';
+  gid('arrow').style.rotate = (alpha - (90 - degBeta)) + 'deg';
 }
