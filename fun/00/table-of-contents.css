@@ -1,0 +1,45 @@
+html, body, .all {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+.all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Assistant', sans-serif;
+    background-color: #c0eeff;
+}
+a {
+    text-decoration: none;
+}
+.title {
+    font-family: 'Cherry Bomb One', cursive;
+    font-size: 50px;
+}
+#of {
+    font-family: 'Dancing Script', cursive;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    padding: 15px;
+    background-color: #9d9dff;
+    border-radius: 20px;
+    width: 500px;
+}
+.name {
+    font-size: 25px;
+    font-family: 'Cherry Bomb One', cursive;
+    color: #480073;
+}
+.explanation {
+    color: black;
+}
+.under-development {
+    background-color: #ffd24a;
+}
