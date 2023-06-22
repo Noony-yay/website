@@ -18,6 +18,14 @@ html, body, .all {
     gap: 10px;
 }
 .cell {
-    background-image: url('circle.jpg');
     background-size: contain;
+}
+.empty {
+    background-color: white;
+}
+.x {
+    background-image: url("x.jpg");
+}
+.o {
+    background-image: url("o.jpg");
 }
