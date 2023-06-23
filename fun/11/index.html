@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" type="text/css" href="tic-tac-toe.css"/>
+    <script src="tictactoe.js"></script>
 </head>
 <body>
     <div class="all">
-        <div class="grid">
-            <div class="cell empty" id="cell1"></div>
-            <div class="cell empty" id="cell2"></div>
-            <div class="cell empty" id="cell3"></div>
-            <div class="cell empty" id="cell4"></div>
-            <div class="cell empty" id="cell5"></div>
-            <div class="cell empty" id="cell6"></div>
-            <div class="cell empty" id="cell7"></div>
-            <div class="cell empty" id="cell8"></div>
-            <div class="cell empty" id="cell9"></div>
+        <div class="grid-container">
+            <div class="grid">
+                <div class="cell empty" id="cell1" onclick="cellClicked('cell1')"></div>
+                <div class="cell empty" id="cell2" onclick="cellClicked('cell2')"></div>
+                <div class="cell empty" id="cell3" onclick="cellClicked('cell3')"></div>
+                <div class="cell empty" id="cell4" onclick="cellClicked('cell4')"></div>
+                <div class="cell empty" id="cell5" onclick="cellClicked('cell5')"></div>
+                <div class="cell empty" id="cell6" onclick="cellClicked('cell6')"></div>
+                <div class="cell empty" id="cell7" onclick="cellClicked('cell7')"></div>
+                <div class="cell empty" id="cell8" onclick="cellClicked('cell8')"></div>
+                <div class="cell empty" id="cell9" onclick="cellClicked('cell9')"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="won-modal">
+        <div class="modal-content">
+            <div class="modal-text">
+                Player <span id="winner"></span> won!
+            </div>
         </div>
     </div>
 </body>
