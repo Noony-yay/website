@@ -7,7 +7,6 @@ html, body, .all {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Assistant', sans-serif;
 }
 .grid-container {
     width: 80%;
@@ -54,4 +53,8 @@ html, body, .all {
     justify-content: center;
     align-items: center;
     margin: auto;
+}
+.modal-text {
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
 }
