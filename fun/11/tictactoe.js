@@ -14,12 +14,16 @@ function cellClicked(clickedElementId) {
         winnerDetected(winner);
         return;
     }
-    gid(computersTurn()).className = "cell o";
-    winner = getWinner();
-    if (winner != null) {
-        winnerDetected(winner);
-        return;
-    }
+    gid("thinking-modal").style.display = "flex";
+    setTimeout(() => {
+        gid("thinking-modal").style.display = "none";
+        gid(computersTurn()).className = "cell o";
+        winner = getWinner();
+        if (winner != null) {
+            winnerDetected(winner);
+            return;
+        }
+    }, 500);
 }
 
 function getWinner() {

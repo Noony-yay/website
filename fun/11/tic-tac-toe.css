@@ -54,7 +54,7 @@ html, body, .all {
     align-items: center;
     margin: auto;
 }
-.modal-text {
+#won-text {
     font-family: 'Lobster', cursive;
     font-size: 40px;
 }
