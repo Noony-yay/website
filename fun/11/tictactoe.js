@@ -1,3 +1,5 @@
+'use strict';
+
 function gid(id) {
     return document.getElementById(id);
 }
@@ -27,6 +29,14 @@ function cellClicked(clickedElementId) {
 }
 
 function getWinner() {
+    for (var i = 1; i <= 9; i++) {
+        if (who(i) == "e") {
+            break;
+        }
+        if (i == 9) {
+            return "t";
+        }
+    }
     if (who(1) == who(2) && who(1) == who(3)) {
         if (who(1) != "e") {
             return who(1);
@@ -74,8 +84,14 @@ function who(cellNum) {
     return gid("cell" + cellNum).className[5];
 }
 function winnerDetected(winner) {
-    gid("winner").innerHTML = winner;
-    gid("won-modal").style.display = "flex";
+    if (winner != "t") {
+        gid("winner").innerHTML = winner;
+        gid("won-modal").style.display = "flex";
+    }
+    else {
+        gid("won-text").innerHTML = "Tie!";
+        gid("won-modal").style.display = "flex";
+    }
 }
 
 function computersTurn() {
@@ -89,9 +105,6 @@ function computersTurn() {
 }
 function oneToNine() {
     //chooses an int from 1 to 9
-    num = Math.floor(Math.random() * 10);
-    while (num == 0) {
-        num = Math.floor(Math.random() * 10);
-    }
+    var num = Math.floor(Math.random() * 9) + 1;
     return num;
 }
