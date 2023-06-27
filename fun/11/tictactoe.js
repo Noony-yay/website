@@ -74,7 +74,7 @@ function winnerDetected(winner) {
 }
 
 function computersTurn() {
-    var randomCellNum = oneToNine()
+    var randomCellNum = oneToNine();
     while (who(randomCellNum) != "e") {
         // continues until it finds an empty cell
         randomCellNum = oneToNine();
