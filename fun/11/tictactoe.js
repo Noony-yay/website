@@ -3,19 +3,22 @@ function gid(id) {
 }
 
 
-var turn = "x";
 function cellClicked(clickedElementId) {
     var clickedElementClasses = gid(clickedElementId).className;
     if (clickedElementClasses != "cell empty") {
         return;
     }
-    gid(clickedElementId).className = "cell " + turn;
-    turn = (turn == 'x' ? 'o' : 'x');
+    gid(clickedElementId).className = "cell x";
     var winner = getWinner();
-    if (winner == null) {
+    if (winner != null) {
+        winnerDetected(winner);
         return;
     }
-    winnerDetected(winner);
+    gid(computersTurn()).className = "cell o";
+    if (winner != null) {
+        winnerDetected(winner);
+        return;
+    }
 }
 
 function getWinner() {
@@ -68,4 +71,22 @@ function who(cellNum) {
 function winnerDetected(winner) {
     gid("winner").innerHTML = winner;
     gid("won-modal").style.display = "flex";
+}
+
+function computersTurn() {
+    var randomCellNum = oneToNine()
+    while (who(randomCellNum) != "e") {
+        // continues until it finds an empty cell
+        randomCellNum = oneToNine();
+    }
+    // when it finds an empty cell - returns the cell's id
+    return "cell" + randomCellNum;
+}
+function oneToNine() {
+    //chooses an int from 1 to 9
+    num = Math.floor(Math.random() * 10);
+    while (num == 0) {
+        num = Math.floor(Math.random() * 10);
+    }
+    return num;
 }
