@@ -15,6 +15,7 @@ function cellClicked(clickedElementId) {
         return;
     }
     gid(computersTurn()).className = "cell o";
+    winner = getWinner();
     if (winner != null) {
         winnerDetected(winner);
         return;
