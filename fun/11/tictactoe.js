@@ -111,7 +111,7 @@ function oneToNine() {
 
 function makeCellList() {
     // makes a list of all the cells
-    var cellList = []
+    var cellList = [];
     for (var i = 1; i <= 9; i++) {
         cellList.push(who(i));
     }
