@@ -19,7 +19,7 @@ function cellClicked(clickedElementId) {
     gid("thinking-modal").style.display = "flex";
     setTimeout(() => {
         gid("thinking-modal").style.display = "none";
-        gid(computersTurn()).className = "cell o";
+        gid(computersTurn(makeCellList())).className = "cell o";
         winner = getWinner();
         if (winner != null) {
             winnerDetected(winner);
@@ -94,7 +94,7 @@ function winnerDetected(winner) {
     }
 }
 
-function computersTurn() {
+function computersTurn(cellList) {
     var randomCellNum = oneToNine();
     while (who(randomCellNum) != "e") {
         // continues until it finds an empty cell
@@ -107,4 +107,13 @@ function oneToNine() {
     //chooses an int from 1 to 9
     var num = Math.floor(Math.random() * 9) + 1;
     return num;
+}
+
+function makeCellList() {
+    // makes a list of all the cells
+    var cellList = []
+    for (var i = 1; i <= 9; i++) {
+        cellList.push(who(i));
+    }
+    return cellList;
 }
