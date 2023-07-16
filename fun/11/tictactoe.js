@@ -11,7 +11,7 @@ function cellClicked(clickedElementId) {
         return;
     }
     gid(clickedElementId).className = "cell x";
-    var winner = getWinner();
+    var winner = getWinner(makeCellList());
     if (winner != null) {
         winnerDetected(winner);
         return;
@@ -19,8 +19,8 @@ function cellClicked(clickedElementId) {
     gid("thinking-modal").style.display = "flex";
     setTimeout(() => {
         gid("thinking-modal").style.display = "none";
-        gid(computersTurn(makeCellList())).className = "cell o";
-        winner = getWinner();
+        gid("cell" + computersTurn(makeCellList())).className = "cell o";
+        winner = getWinner(makeCellList());
         if (winner != null) {
             winnerDetected(winner);
             return;
@@ -28,53 +28,53 @@ function cellClicked(clickedElementId) {
     }, 500);
 }
 
-function getWinner() {
-    for (var i = 1; i <= 9; i++) {
-        if (who(i) == "e") {
+function getWinner(board) {
+    if (board[0] == board[1] && board[0] == board[2]) {
+        if (board[0] != "e") {
+            return board[0];
+        }
+    }
+    if (board[3] == board[4] && board[3] == board[5]) {
+        if (board[3] != "e") {
+            return board[3];
+        }
+    }
+    if (board[6] == board[7] && board[6] == board[8]) {
+        if (board[6] != "e") {
+            return board[6];
+        }
+    }
+    if (board[0] == board[3] && board[0] == board[6]) {
+        if (board[0] != "e") {
+            return board[0];
+        }
+    }
+    if (board[1] == board[4] && board[1] == board[7]) {
+        if (board[1] != "e") {
+            return board[1];
+        }
+    }
+    if (board[2] == board[5] && board[2] == board[8]) {
+        if (board[2] != "e") {
+            return board[2];
+        }
+    }
+    if (board[2] == board[4] && board[2] == board[6]) {
+        if (board[2] != "e") {
+            return board[2];
+        }
+    }
+    if (board[0] == board[4] && board[0] == board[8]) {
+        if (board[0] != "e") {
+            return board[0];
+        }
+    }
+    for (var i = 0; i < 9; i++) {
+        if (board[i] == "e") {
             break;
         }
-        if (i == 9) {
+        if (i == 8) {
             return "t";
-        }
-    }
-    if (who(1) == who(2) && who(1) == who(3)) {
-        if (who(1) != "e") {
-            return who(1);
-        }
-    }
-    if (who(4) == who(5) && who(4) == who(6)) {
-        if (who(4) != "e") {
-            return who(4);
-        }
-    }
-    if (who(7) == who(8) && who(7) == who(9)) {
-        if (who(7) != "e") {
-            return who(7);
-        }
-    }
-    if (who(1) == who(4) && who(1) == who(7)) {
-        if (who(1) != "e") {
-            return who(1);
-        }
-    }
-    if (who(2) == who(5) && who(2) == who(8)) {
-        if (who(2) != "e") {
-            return who(2);
-        }
-    }
-    if (who(3) == who(6) && who(3) == who(9)) {
-        if (who(3) != "e") {
-            return who(3);
-        }
-    }
-    if (who(3) == who(5) && who(3) == who(7)) {
-        if (who(3) != "e") {
-            return who(3);
-        }
-    }
-    if (who(1) == who(5) && who(1) == who(9)) {
-        if (who(1) != "e") {
-            return who(1);
         }
     }
 }
@@ -94,19 +94,41 @@ function winnerDetected(winner) {
     }
 }
 
-function computersTurn(cellList) {
-    var randomCellNum = oneToNine();
-    while (who(randomCellNum) != "e") {
-        // continues until it finds an empty cell
-        randomCellNum = oneToNine();
+/**
+ * If the computer can win with one step, it takes this step.
+ * If not, it chooses randomly.
+ * @param cellsNow - list of the current board state.
+ * @returns The number of the cell to play (1-9).
+ */
+function computersTurn(cellsNow) {
+    var cellsAfter = [...cellsNow];
+    for (var i = 0; i < 9; i++) {
+        if (cellsAfter[i] == "e") {
+            cellsAfter[i] = "o";
+            if (getWinner(cellsAfter) == "o") {
+                return i + 1;
+            }
+            cellsAfter = [...cellsNow];
+        }
     }
-    // when it finds an empty cell - returns the cell's id
-    return "cell" + randomCellNum;
+    return randomEmptyCell(cellsNow);
 }
+/**
+ * Returns a random number in the range 1-9.
+ */
 function oneToNine() {
     //chooses an int from 1 to 9
     var num = Math.floor(Math.random() * 9) + 1;
     return num;
+}
+function randomEmptyCell(board) {
+    var randomCellNum = oneToNine();
+    while (board[randomCellNum - 1] != "e") {
+        // continues until it finds an empty cell
+        randomCellNum = oneToNine();
+    }
+    // when it finds an empty cell - returns the cell's id
+    return randomCellNum;
 }
 
 function makeCellList() {
@@ -117,3 +139,16 @@ function makeCellList() {
     }
     return cellList;
 }
+
+function assert(condition) {
+    if (!condition) {
+        throw 'Test failed!';
+    }
+}
+
+function runTests() {
+    assert(computersTurn(["x", "x", "e", "e", "x", "x", "o", "o", "e"]) == 9);
+    assert(computersTurn(["x", "x", "e", "x", "x", "x", "o", "o", "x"]) == 3);
+}
+
+runTests();
