@@ -30,7 +30,8 @@ a {
     padding: 15px;
     background-color: #9d9dff;
     border-radius: 20px;
-    width: 500px;
+    width: 80%;
+    cursor: pointer;
 }
 .name {
     font-size: 25px;
