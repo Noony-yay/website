@@ -28,6 +28,10 @@ function cellClicked(clickedElementId) {
     }, 500);
 }
 
+/** Who won in the current board.
+ * @returns: 'o' if O won, 'x' if X won, 't' if the game ended in a tie, and null if the game is not over yet.
+ * @param board: list of current board state.
+ */
 function getWinner(board) {
     if (board[0] == board[1] && board[0] == board[2]) {
         if (board[0] != "e") {
@@ -103,44 +107,73 @@ function winnerDetected(winner) {
  * @returns The number of the cell to play (1-9).
  */
 function computersTurn(cellsNow) {
-    var cellsAfterD1 = [...cellsNow];
-    var okayMoves = [];
+    var cellsAfter = [...cellsNow];
+    var tieMoves = [];
     for (var i = 0; i < 9; i++) {
-        if (cellsAfterD1[i] != "e") {
+        if (cellsAfter[i] != "e") {
             continue;  // Can't put an O here.
         }
-        cellsAfterD1[i] = "o";
-        if (getWinner(cellsAfterD1) == "o") {
+        cellsAfter[i] = "o";
+        var currentOutcome = outcome(cellsAfter, 'x', 7);
+        if (currentOutcome == "o") {
             console.log('Definite win!')
             return i + 1;
         }
-        // check if the player can win.
-        // if the player can win, then don't do this.
-        // if not, we might want to do this.
-        var canPlayerWin = false;
-        for (var j = 0; j < 9; j++) {
-            if (cellsAfterD1[j] != "e") {
-                continue;  // Can't put an X here.
-            }
-            var cellsAfterD2 = [...cellsAfterD1];
-            cellsAfterD2[j] = "x";
-            if (getWinner(cellsAfterD2) == "x") {
-                canPlayerWin = true;
+        else {
+            if (currentOutcome == "t") {
+                tieMoves.push(i + 1);
             }
         }
-        if (!canPlayerWin) {
-            okayMoves.push(i + 1);
-        }
-        cellsAfterD1 = [...cellsNow];
+        cellsAfter = [...cellsNow];
     }
-    if (okayMoves.length == 0) {
+    if (tieMoves.length == 0) {
         // If I will definitely lose, I won't tell the player so maybe they will be stupid!
         console.log('Oh no, I lose.')
         return randomEmptyCell(cellsNow);
     }
-    console.log('I dont really know who will win. Okay moves: ' + okayMoves)
-    return okayMoves[Math.floor(Math.random() * okayMoves.length)];
+    console.log('I cannot win, but I can do these things to get a tie: ' + tieMoves)
+    return tieMoves[Math.floor(Math.random() * tieMoves.length)];
 }
+
+/** Who can win in the current state.
+ * @returns:
+ * 'o' if o can force a win
+ * 'x' if x can force a win
+ * 't' if neither can force a win within the depth specified
+ * @param cellsNow: list of current board
+ * @param whoseTurn: 'x' or 'o'
+ * @param depth: how many turns to check
+ */
+function outcome(cellsNow, whoseTurn, depth) {
+    var cellsAfter = [...cellsNow];
+    var innerOutcomeCounts = {'o': 0, 'x': 0, 't': 0};
+    var opponent = (whoseTurn == 'o' ? 'x' : 'o');
+    for (var i = 0; i < 9; i++) {
+        if (cellsAfter[i] != "e") {
+            continue;  // Can't put anything here.
+        }
+        cellsAfter[i] = whoseTurn;
+        var winner = getWinner(cellsAfter);
+        if (winner != null && winner != 't') {
+            return winner;
+        }
+        if (depth > 1) { // recursion!
+            innerOutcomeCounts[outcome(cellsAfter, opponent, depth - 1)] += 1;
+        }
+        cellsAfter = [...cellsNow];
+    }
+    console.log(innerOutcomeCounts);
+    if (innerOutcomeCounts[whoseTurn] > 0) {
+        return whoseTurn;
+    }
+    if (innerOutcomeCounts[whoseTurn] == 0 &&
+        innerOutcomeCounts['t'] == 0 &&
+        innerOutcomeCounts[opponent] > 0) {
+        return opponent;
+    }
+    return 't';
+}
+
 /**
  * Returns a random number in the range 1-9.
  */
@@ -175,8 +208,30 @@ function assert(condition) {
 }
 
 function runTests() {
-    assert(computersTurn(["x", "x", "e", "e", "x", "x", "o", "o", "e"]) == 9);
-    assert(computersTurn(["x", "x", "e", "x", "x", "x", "o", "o", "x"]) == 3);
+    assert(computersTurn(
+        ["x", "x", "e", "x", "x", "x", "o", "o", "x"]) == 3);
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "o", "e", "x", "x"], 'o', 1) == 'o');
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "o", "e", "x", "x"], 'x', 1) == 'x');
+    assert(outcome(
+        ["x", "e", "e", "e", "x", "e", "e", "e", "o"], 'o', 1) == 't');
+    assert(outcome(
+        ["x", "e", "e", "e", "x", "e", "e", "e", "o"], 'x', 1) == 't');
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "o", "e", "x", "x"], 'o', 2) == 'o');
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "o", "e", "x", "x"], 'x', 2) == 'x');
+    assert(outcome(
+        ["x", "e", "e", "e", "x", "e", "e", "e", "o"], 'o', 2) == 't');
+    assert(outcome(
+        ["x", "e", "e", "e", "x", "e", "e", "e", "o"], 'x', 2) == 't');
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "e", "e", "e", "e"], 'x', 2) == 't');
+    assert(outcome(
+        ["o", "e", "o", "e", "x", "e", "x", "e", "o"], 'x', 2) == 'o');
+    assert(outcome(
+        ["o", "e", "x", "e", "o", "e", "x", "e", "e"], 'x', 2) == 't');
 }
 
 runTests();
