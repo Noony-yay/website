@@ -55,7 +55,29 @@ html, body, .all {
     margin: 20px auto;
     height: 100px;
 }
+.modal-text {
+    font-family: 'Assistant', sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+.modal-title {
+    font-weight: 700;
+    font-size: 40px;
+}
 #won-text {
     font-family: 'Lobster', cursive;
     font-size: 40px;
+}
+#beginning-modal-content {
+    height: fit-content;
+}
+#beginning-modal {
+    display: block;
+}
+.diff-button {
+    background-color: #ff8a8a;
+    margin: 10px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 7px 7px 6px 0px #410505b5;
 }

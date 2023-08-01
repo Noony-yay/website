@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="all">
@@ -37,6 +40,25 @@
         <div class="modal-content">
             <div class="modal-text">
                 Thinking...
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="beginning-modal">
+        <div class="modal-content" id="beginning-modal-content">
+            <div class="modal-text">
+                <div class="modal-title">
+                    Hello!
+                </div>
+                <div>Please choose a difficulty level.</div>
+                <div class="diff-button" onClick="wantedDepth=3; gid('beginning-modal').style.display = 'none';">
+                    Easy
+                </div>
+                <div class="diff-button" onClick="wantedDepth=5; gid('beginning-modal').style.display = 'none';">
+                    Medium
+                </div>
+                <div class="diff-button" onClick="wantedDepth=7; gid('beginning-modal').style.display = 'none';">
+                    Impossible!
+                </div>
             </div>
         </div>
     </div>

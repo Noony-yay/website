@@ -4,6 +4,7 @@ function gid(id) {
     return document.getElementById(id);
 }
 
+var wantedDepth = 1;
 
 function cellClicked(clickedElementId) {
     var clickedElementClasses = gid(clickedElementId).className;
@@ -19,7 +20,7 @@ function cellClicked(clickedElementId) {
     gid("thinking-modal").style.display = "flex";
     setTimeout(() => {
         gid("thinking-modal").style.display = "none";
-        gid("cell" + computersTurn(makeCellList())).className = "cell o";
+        gid("cell" + computersTurn(makeCellList(), wantedDepth)).className = "cell o";
         winner = getWinner(makeCellList());
         if (winner != null) {
             winnerDetected(winner);
@@ -106,7 +107,7 @@ function winnerDetected(winner) {
  * @param cellsNow - list of the current board state.
  * @returns The number of the cell to play (1-9).
  */
-function computersTurn(cellsNow) {
+function computersTurn(cellsNow, depth) {
     var cellsAfter = [...cellsNow];
     var tieMoves = [];
     for (var i = 0; i < 9; i++) {
@@ -114,7 +115,7 @@ function computersTurn(cellsNow) {
             continue;  // Can't put an O here.
         }
         cellsAfter[i] = "o";
-        var currentOutcome = outcome(cellsAfter, 'x', 7);
+        var currentOutcome = outcome(cellsAfter, 'x', depth);
         if (currentOutcome == "o") {
             console.log('Definite win!')
             return i + 1;
@@ -162,7 +163,6 @@ function outcome(cellsNow, whoseTurn, depth) {
         }
         cellsAfter = [...cellsNow];
     }
-    console.log(innerOutcomeCounts);
     if (innerOutcomeCounts[whoseTurn] > 0) {
         return whoseTurn;
     }
