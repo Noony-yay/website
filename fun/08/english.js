@@ -29,6 +29,16 @@ var words = [
     new Word("bed", "מיטה")
 ];
 
+function saveCookie() {
+    var dictionary = {};
+    for (var i = 0; i < words.length; i++) {
+        dictionary[words[i].english] = {
+            "numCorrect": words[i].numCorrect,
+            "numIncorrect": words[i].numIncorrect};
+    }
+    document.cookie = 'history=' + JSON.stringify(dictionary) + '; max-age=3153600000'
+}
+
 var selectedWord;
 var numCorrectAnswers = 0;
 var numQuestionsAsked = 0;
@@ -88,6 +98,7 @@ function answered() {
         cell.style.backgroundColor = '#e70000';
         selectedWord.numIncorrect += 1;
     }
+    saveCookie();
     gid('continue-button').style.display = 'block';
     numQuestionsAsked +=1;
     if (numQuestionsAsked == 10) {
