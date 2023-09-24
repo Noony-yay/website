@@ -5,6 +5,10 @@ class Word {
         this.numCorrect = 0;
         this.numIncorrect = 0;
     }
+
+    weight() {
+        return Math.pow(0.9, this.numCorrect) * Math.pow(1.2, this.numIncorrect);
+    }
 }
 
 var words = [
@@ -33,7 +37,7 @@ function gid(id) {
 }
 
 function again() {
-    randomWord();
+    selectAndShowRandomWord();
     gid('finished-button').style.display = 'block';
     gid('wrong-answer-container').style.display = 'none';
     gid('right-answer-container').style.display = 'none';
@@ -44,9 +48,25 @@ function again() {
 function getRandomInt(max) {
     return Math.floor(Math.random()*max);
 }
-function randomWord() {
+
+function getRandomWord() {
+    var r = Math.random();
+    var sum = 0;
+    for (var i = 0; i<words.length; i++) {
+        sum += words[i].weight();
+    }
+    var d = r * sum;
+    for (var i = 0; i<words.length; i++) {
+        if (d < words[i].weight()) {
+            return i;
+        }
+        d -= words[i].weight();
+    }
+}
+
+function selectAndShowRandomWord() {
     var englishWord = gid('english-word');
-    var wordIndex = getRandomInt(words.length);
+    var wordIndex = getRandomWord();
     selectedWord = words[wordIndex];
     englishWord.innerHTML = selectedWord.english;
 }
