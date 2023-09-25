@@ -39,6 +39,18 @@ function saveCookie() {
     document.cookie = 'history=' + JSON.stringify(dictionary) + '; max-age=3153600000'
 }
 
+function loadCookie() {
+    // var history = the cookie, but without the beginning: "history="
+    var userCookieHistory = document.cookie.substring(8);
+    userCookieHistory = JSON.parse(userCookieHistory);
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].english in userCookieHistory) {
+            words[i].numCorrect = userCookieHistory[words[i].english]["numCorrect"];
+            words[i].numIncorrect = userCookieHistory[words[i].english]["numIncorrect"];
+        }
+    }
+}
+
 var selectedWord;
 var numCorrectAnswers = 0;
 var numQuestionsAsked = 0;
@@ -75,6 +87,7 @@ function getRandomWord() {
 }
 
 function selectAndShowRandomWord() {
+    loadCookie();
     var englishWord = gid('english-word');
     var wordIndex = getRandomWord();
     selectedWord = words[wordIndex];
