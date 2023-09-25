@@ -40,6 +40,9 @@ function saveCookie() {
 }
 
 function loadCookie() {
+    if (document.cookie == '') {
+        return;
+    }
     // var history = the cookie, but without the beginning: "history="
     var userCookieHistory = document.cookie.substring(8);
     userCookieHistory = JSON.parse(userCookieHistory);
