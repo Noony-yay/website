@@ -167,8 +167,10 @@ function loadCookie() {
     userCookieHistory = JSON.parse(userCookieHistory);
     for (var i = 0; i < words.length; i++) {
         if (words[i].english in userCookieHistory) {
-            words[i].numCorrect = userCookieHistory[words[i].english]["c"];
-            words[i].numIncorrect = userCookieHistory[words[i].english]["i"];
+            if ('c' in userCookieHistory[words[i].english]) {
+                words[i].numCorrect = userCookieHistory[words[i].english]["c"];
+                words[i].numIncorrect = userCookieHistory[words[i].english]["i"];
+            }
         }
     }
 }
