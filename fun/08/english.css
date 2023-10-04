@@ -55,7 +55,7 @@ html, body, .all {
 #summary-title {
     font-size: 27px;
 }
-#summary-text {
+.summary-text {
     font-size: 20px;
 }
 #num-correct-questions {

@@ -250,5 +250,14 @@ function finished() {
     else {
         gid('summary-title').innerHTML = 'כל הכבוד!';
     }
+    var totalAnsweredQuestions = 0;
+    var answeredCorrectly = 0;
+    for (var i = 0; i < words.length; i++) {
+        totalAnsweredQuestions += words[i].numCorrect + words[i].numIncorrect;
+        answeredCorrectly += words[i].numCorrect;
+    }
+    var correctAnswerPrecentage = answeredCorrectly / totalAnsweredQuestions * 100;
+    gid('num-questions').innerHTML = totalAnsweredQuestions;
+    gid('correct-precentage').innerHTML = correctAnswerPrecentage;
     gid('all-end').style.display = 'flex';
 }
