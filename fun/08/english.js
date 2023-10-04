@@ -155,7 +155,7 @@ function saveCookie() {
             "c": words[i].numCorrect,
             "i": words[i].numIncorrect};
     }
-    document.cookie = 'history=' + JSON.stringify(dictionary) + '; max-age=3153600000'
+    document.cookie = 'history=' + JSON.stringify(dictionary) + '; max-age=3153600000; path=/'
 }
 
 function loadCookie() {
