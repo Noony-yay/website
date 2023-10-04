@@ -152,8 +152,8 @@ function saveCookie() {
     var dictionary = {};
     for (var i = 0; i < words.length; i++) {
         dictionary[words[i].english] = {
-            "numCorrect": words[i].numCorrect,
-            "numIncorrect": words[i].numIncorrect};
+            "c": words[i].numCorrect,
+            "i": words[i].numIncorrect};
     }
     document.cookie = 'history=' + JSON.stringify(dictionary) + '; max-age=3153600000'
 }
@@ -167,8 +167,8 @@ function loadCookie() {
     userCookieHistory = JSON.parse(userCookieHistory);
     for (var i = 0; i < words.length; i++) {
         if (words[i].english in userCookieHistory) {
-            words[i].numCorrect = userCookieHistory[words[i].english]["numCorrect"];
-            words[i].numIncorrect = userCookieHistory[words[i].english]["numIncorrect"];
+            words[i].numCorrect = userCookieHistory[words[i].english]["c"];
+            words[i].numIncorrect = userCookieHistory[words[i].english]["i"];
         }
     }
 }
