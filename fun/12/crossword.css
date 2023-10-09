@@ -1,0 +1,31 @@
+#all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#title {
+    padding: 15px;
+    font-size: 40px;
+}
+#crossword {
+    display: grid;
+    gap: 2px;
+    /* grid-template-columns and grid-template-rows are added by the js */
+}
+.letter-cell {
+    outline: 2px solid black;
+    width: 100%;
+    text-align: center;
+}
+.number {
+    position: absolute;
+    padding-left: 2px;
+}
+.letter {
+    font-size: 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
