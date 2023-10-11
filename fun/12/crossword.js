@@ -1,5 +1,17 @@
 'use strict';
 
+const HORIZONTAL = 'horizontal';
+const VERTICAL = 'vertical';    
+
+class Placement {
+    constructor(word, row, column, direction) {
+        this.word = word;
+        this.row = row;
+        this. column = column;
+        this.direction = direction;
+    }
+}
+
 function createGrid(numRows, numColumns) {
     var grid = [];
     for (var row = 0; row < numRows; row++) {
@@ -45,4 +57,26 @@ function gridToHtml(grid) {
     }
     $('#crossword').css('grid-template-columns', 'repeat(' + grid[0].length + ', 50px');
     $('#crossword').css('grid-template-rows', 'repeat(' + grid.length + ', 50px');    
+}
+
+function addFirstWord(grid) {
+    while(true) {
+        var chosenWord = words[getRandomWord()];
+        var chosenWordEnglish = chosenWord.english.toUpperCase();
+        if (chosenWordEnglish.length <= grid[0].length) {
+            var chosenRow = getRandomInt(grid.length);
+            var chosenColumn = getRandomInt(grid[0].length - chosenWordEnglish.length);
+            for (var i = 0; i < chosenWordEnglish.length; i++) {
+                grid[chosenRow][chosenColumn + i].letter = chosenWordEnglish[i];
+            }
+            return new Placement(chosenWord, chosenRow, chosenColumn, HORIZONTAL);
+        }
+    }
+}
+
+function main() {
+    var wordPlacements = [];
+    var grid = createGrid(6, 6);
+    wordPlacements.push(addFirstWord(grid));
+    gridToHtml(grid);
 }
