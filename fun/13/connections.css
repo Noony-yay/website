@@ -10,12 +10,11 @@ body {
 
 #all {
     height: 100%;
-    max-width: 500px;
-    width: 100%;
+    width: 350px;
     display: flex;
     align-items: center;
-    justify-content: center;
     font-family: 'Heebo', sans-serif;
+    flex-direction: column;
 }
 
 .grid-item {
@@ -28,9 +27,46 @@ body {
     align-items: center;
 }
 
+.selected-item {
+    background-color: #ddf1f7;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #6b808d;
+    box-sizing: border-box;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
 
+.logo-bar {
+    font-size: 25px;
+    width: 350px;
+    text-align: center;
+    border-bottom-color: gray;
+    border-bottom-style: solid;
+    border-width: 1px;
+    margin-bottom: 10px;
+}
+
+.buttons-container {
+    display: flex;
+    width: 350px;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 1px grey;
+    margin: 10px;
+    padding: 10px;
+}
+
+.button {
+    background-color: #d5d5d5;
+    border-radius: 5px;
+    margin: auto;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
