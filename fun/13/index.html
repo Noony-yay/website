@@ -3,71 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>חיבורים</title>
+    <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="connections.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@700&display=swap" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;600;700&display=swap" rel="stylesheet"></head>
 <body>
     <div id="all">
         <div class="logo-bar">
             חיבורים
         </div>
-        <div class="grid-container">
-            <div class="grid-item" id="item11">
-                <div class="item-text" id="item-text11"></div>
+        <div class="filler"></div>
+        <div id="main">
+            <!-- <div class="grid-container">
+                <div class="grid-item solved-row">
+                    <div class="solved-heading">דורסי יום</div>
+                    <div class="solved-items">נץ, נשר, בז, חתול</div>
+                </div>
+                <div class="grid-item solved-row">
+                    <div class="solved-heading">דורסי יום</div>
+                    <div class="solved-items">נץ, נשר, בז, חתול</div>
+                </div>
+                <div class="grid-item solved-row">
+                    <div class="solved-heading">דורסי יום</div>
+                    <div class="solved-items">נץ, נשר, בז, חתול</div>
+                </div>
+                <div class="grid-item solved-row">
+                    <div class="solved-heading">דורסי יום</div>
+                    <div class="solved-items">נץ, נשר, בז, חתול</div>
+                </div>
+            </div> -->
+            <div style="padding-top: 20px"></div>
+            <div class="grid-container">
+                <div class="grid-item" id="item11">
+                    <div class="item-text" id="item-text11"></div>
+                </div>
+                <div class="grid-item" id="item12">
+                    <div class="item-text" id="item-text12"></div>
+                </div>
+                <div class="grid-item" id="item13">
+                    <div class="item-text" id="item-text13"></div>
+                </div>
+                <div class="grid-item" id="item14">
+                    <div class="item-text" id="item-text14"></div>
+                </div>
+                <div class="grid-item" id="item21">
+                    <div class="item-text" id="item-text21"></div>
+                </div>
+                <div class="grid-item" id="item22">
+                    <div class="item-text" id="item-text22"></div>
+                </div>
+                <div class="grid-item" id="item23">
+                    <div class="item-text" id="item-text23"></div>
+                </div>
+                <div class="grid-item" id="item24">
+                    <div class="item-text" id="item-text24"></div>
+                </div>
+                <div class="grid-item" id="item31">
+                    <div class="item-text" id="item-text31"></div>
+                </div>
+                <div class="grid-item" id="item32">
+                    <div class="item-text" id="item-text32"></div>
+                </div>
+                <div class="grid-item" id="item33">
+                    <div class="item-text" id="item-text33"></div>
+                </div>
+                <div class="grid-item" id="item34">
+                    <div class="item-text" id="item-text34"></div>
+                </div>
+                <div class="grid-item" id="item41">
+                    <div class="item-text" id="item-text41"></div>
+                </div>
+                <div class="grid-item" id="item42">
+                    <div class="item-text" id="item-text42"></div>
+                </div>
+                <div class="grid-item" id="item43">
+                    <div class="item-text" id="item-text43"></div>
+                </div>
+                <div class="grid-item" id="item44">
+                    <div class="item-text" id="item-text44"></div>
+                </div>
             </div>
-            <div class="grid-item" id="item12">
-                <div class="item-text" id="item-text12"></div>
-            </div>
-            <div class="grid-item" id="item13">
-                <div class="item-text" id="item-text13"></div>
-            </div>
-            <div class="grid-item" id="item14">
-                <div class="item-text" id="item-text14"></div>
-            </div>
-            <div class="grid-item" id="item21">
-                <div class="item-text" id="item-text21"></div>
-            </div>
-            <div class="grid-item" id="item22">
-                <div class="item-text" id="item-text22"></div>
-            </div>
-            <div class="grid-item" id="item23">
-                <div class="item-text" id="item-text23"></div>
-            </div>
-            <div class="grid-item" id="item24">
-                <div class="item-text" id="item-text24"></div>
-            </div>
-            <div class="grid-item" id="item31">
-                <div class="item-text" id="item-text31"></div>
-            </div>
-            <div class="grid-item" id="item32">
-                <div class="item-text" id="item-text32"></div>
-            </div>
-            <div class="grid-item" id="item33">
-                <div class="item-text" id="item-text33"></div>
-            </div>
-            <div class="grid-item" id="item34">
-                <div class="item-text" id="item-text34"></div>
-            </div>
-            <div class="grid-item" id="item41">
-                <div class="item-text" id="item-text41"></div>
-            </div>
-            <div class="grid-item" id="item42">
-                <div class="item-text" id="item-text42"></div>
-            </div>
-            <div class="grid-item" id="item43">
-                <div class="item-text" id="item-text43"></div>
-            </div>
-            <div class="grid-item" id="item44">
-                <div class="item-text" id="item-text44"></div>
+            <div class="buttons-container">
+                <div class="button" id="check-button">בדיקה</div>
+                <div class="button" id="hint-button">רמז</div>
             </div>
         </div>
-        <div class="buttons-container">
-            <div class="button" id="check-button">בדיקה</div>
-            <div class="button" id="hint-button">רמז</div>
-            <div class="button" id="shuffle-button">ערבוב</div>
-        </div>
+        <div class="filler"></div>
     </div>
 </body>
 </html>
