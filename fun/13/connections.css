@@ -46,8 +46,9 @@ body {
     background-color: #9bc4ff;
     border: 5px solid #9bc4ff;
     box-sizing: border-box;
-    width: 100%;
+    width: 75px;
     height: 75px;
+    overflow: hidden;
     display: flex;
     text-align: center;
     align-items: center;

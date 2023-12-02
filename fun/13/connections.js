@@ -54,6 +54,14 @@ function populateInitialBoard() {
       $('.item-text').eq(row * 4 + col).text(
         settings.initialBoard[row][col]
       );
+      // Adjust font size to avoid overflow.
+      const curGridItem = $('.grid-item').eq(row * 4 + col);
+      let fontSize = 17;
+      while (curGridItem[0].scrollWidth > curGridItem[0].clientWidth) {
+        curGridItem.css('font-size', fontSize);
+        fontSize--;
+        if (fontSize < 11) break;
+      }
     }
   }
 }
