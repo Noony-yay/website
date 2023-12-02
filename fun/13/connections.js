@@ -58,7 +58,9 @@ function populateInitialBoard() {
       const curGridItem = $('.grid-item').eq(row * 4 + col);
       let fontSize = 17;
       while (curGridItem[0].scrollWidth > curGridItem[0].clientWidth) {
-        curGridItem.css('font-size', fontSize);
+        curGridItem
+          .css('font-size', `${fontSize}px`)
+          .css('line-height', `${fontSize+1}px`);
         fontSize--;
         if (fontSize < 11) break;
       }

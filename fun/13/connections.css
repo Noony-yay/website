@@ -49,6 +49,7 @@ body {
     width: 75px;
     height: 75px;
     overflow: hidden;
+    line-height: 19px;
     display: flex;
     text-align: center;
     align-items: center;
