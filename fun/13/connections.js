@@ -26,11 +26,11 @@ const settings = {
     'חניתה': 3,
   },
   groupDescriptors: [
-    'זמרות זוכות פרס ישראל',
-    'שבטי ישראל',
-    'אנשי דת',
-    'קיבוצים בצפון',
-  ]
+    ['זמרות זוכות פרס ישראל', 'שושנה, נורית, יפה, נעמי'],
+    ['שבטי ישראל', 'אשר, גד, דן, לוי'],
+    ['אנשי דת', 'כומר, שאמאן, נזיר, כהן'],
+    ['קיבוצים בצפון', 'דליה, חפציבה, דפנה, חניתה'],
+  ],
 };
 
 function initializeHtml() {
@@ -43,7 +43,8 @@ function initializeHtml() {
       );
     }
   }
-  // TODO: Load settings via ajax
+  $('#submit-button').on('click', clickSubmit);
+  // TODO: Load `settings` via ajax
   populateInitialBoard();
 }
 
@@ -65,6 +66,47 @@ function clickItem(evt) {
   }
   if ($('.selected-item').length < 4) {
     gridItem.addClass('selected-item');
+  }
+}
+
+function clickSubmit() {
+  if ($('.selected-item').length != 4) {
+    alert('יש לבחור ארבע מילים ואז ללחוץ על "אישור".');
+    return;
+  }
+  // Collect the correct assignment for each selected item.
+  const submittedAssignments = $('.selected-item').map(
+    (n, item) => settings.correctAssignments[$(item).text()]);
+  // Check if the assignments of all selected items are equal.
+  const solvedGroup = submittedAssignments[0];
+  const allEqual = [...submittedAssignments].every(
+    val => (val === solvedGroup));
+  
+  if (!allEqual) {
+    // Incorrect submission.
+    alert('טעות בידך :(');
+    return;
+  }
+
+  // Correct submission.
+  // TODO: Fancy animation magic.
+  $('.selected-item').remove();
+  const solvedRow = $('<div class="solved-row">')
+  solvedRow.append($('<div class="solved-heading">')
+    .text(settings.groupDescriptors[solvedGroup][0]));
+  solvedRow.append($('<div class="solved-items">')
+    .text(settings.groupDescriptors[solvedGroup][1]));
+  const numRowsAlreadySolved = $('.solved-row').length;
+  if (numRowsAlreadySolved == 0) {
+    $('.grid-container').prepend(solvedRow);
+  } else {
+    solvedRow.insertAfter(
+      `.grid-container > div:nth-child(${numRowsAlreadySolved})`);
+  }
+
+  if (numRowsAlreadySolved == 3) {
+    // Victory!
+    alert('כל הכבוד! ניצחת!');
   }
 }
 
