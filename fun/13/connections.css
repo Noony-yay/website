@@ -7,6 +7,7 @@ body {
     display: flex;
     justify-content: center;
     background-color: #9bc4ff;
+    font-size: 18px;
 }
 
 #all {
@@ -43,6 +44,24 @@ body {
 .grid-item {
     border-radius: 12px;
     background-color: #9bc4ff;
+    border: 5px solid #9bc4ff;
+    box-sizing: border-box;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    line-height: 19px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    box-shadow: 3px 3px 4px 0px #00000075;
+    justify-content: center;
+    transition: background 250ms;
+    cursor: pointer;
+}
+
+.solved-row {
+    border-radius: 12px;
+    background-color: #9bc4ff;
     width: 100%;
     height: 75px;
     display: flex;
@@ -50,9 +69,7 @@ body {
     align-items: center;
     box-shadow: 3px 3px 4px 0px #00000075;
     justify-content: center;
-}
-
-.solved-row {
+    cursor: default;
     grid-column-end: span 4;
     flex-direction: column;
     line-height: 19px;
@@ -77,8 +94,6 @@ body {
 
 .selected-item {
     background-color: #d3e5ff;
-    box-sizing: border-box;
-    border: 5px solid #9bc4ff;
 }
 
 .logo-bar {
@@ -107,10 +122,12 @@ body {
 .button {
     background-color: #d5d5d5;
     border-radius: 5px;
-    margin: auto;
+    margin: 0px 25px;
     width: 60px;
     height: 30px;
+    padding: 5px 15px;
     text-align: center;
     line-height: 30px;
     box-shadow: 3px 3px 4px 0px #00000075;
+    cursor: pointer;
 }
