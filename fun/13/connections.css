@@ -8,6 +8,7 @@ body {
     justify-content: center;
     background-color: #9bc4ff;
     font-size: 18px;
+    align-items: center;
 }
 
 #all {
@@ -114,8 +115,6 @@ body {
     width: 375px;
     align-items: center;
     justify-content: center;
-    border-top: solid 1px #506087;
-    margin-top: 20px;
     padding-top: 20px;
 }
 
@@ -130,4 +129,62 @@ body {
     line-height: 30px;
     box-shadow: 3px 3px 4px 0px #00000075;
     cursor: pointer;
+}
+
+.unclickable {
+    box-shadow: none;
+    color: #717070;
+}
+
+.mistake-container {
+    width: 375px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: solid 1px #506087;
+}
+
+#mistake-counter {
+    display: flex;
+}
+
+#mistake-text {
+    padding-left: 10px;
+}
+
+.mistake-circle {
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border-radius: 50%;
+    margin: 3px;
+}
+
+
+
+/* TODO */
+.dialogue {
+    position: absolute;
+    text-align: center;
+}
+
+#big-dialogue {
+    height: 100%;
+    width: 100%;
+}
+
+#big-dialogue-main {
+    width: 350px;
+    height: 90%;
+    background-color: white;
+    border-radius: 15px;
+}
+
+#big-dialogue-background {
+    width: 100%;
+    height: 100%;
+    background-color: #00000094;
+    position: absolute;
 }

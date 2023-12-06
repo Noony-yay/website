@@ -11,9 +11,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="connections.js"></script>
 <body>
+    <!--TODO:
+        Add a dialogue div that can be used for "welcome", "well done", etc.
+        I'm not sure how to do it and I want to make the mistake counter.
+    -->
+    <!-- <div class="dialogue" id="big-dialogue">
+        <div id="big-dialogue-background"></div>
+        <div id="big-dialogue-main">
+            <div id="big-dialogue-title">ברוכים הבאים!</div>
+            <div id="big-dialogue-text">הרבה הרבה טקסט ואוו כל כך הרבה טקסט עוד ועוד ועוד ועוד ועוד טקסט אהההה טקסטטט ואוו טקסט</div>
+        </div>
+    </div> --> 
     <div id="all">
         <div class="logo-bar">
-            חיבורים
+            קשר מרובע
         </div>
         <div class="filler"></div>
         <div id="main">
@@ -36,9 +47,19 @@
                     <div class="solved-items">נץ, נשר, בז, חתול</div>
                 </div>
             </div> -->
+            <div class="mistake-container">
+                <div id="mistake-text">נסיונות שנשארו:</div>
+                <div id="mistake-counter">
+                    <div class="mistake-circle" id="mt1"></div>
+                    <div class="mistake-circle" id="mt2"></div>
+                    <div class="mistake-circle" id="mt3"></div>
+                    <div class="mistake-circle" id="mt4"></div>
+                </div>
+            </div>
             <div class="buttons-container">
                 <div class="button" id="submit-button">אישור</div>
                 <div class="button" id="hint-button">רמז</div>
+                <div class="button" id="deselect-button">ביטול</div>
             </div>
         </div>
         <div class="filler"></div>
