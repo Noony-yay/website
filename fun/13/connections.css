@@ -162,29 +162,41 @@ body {
     margin: 3px;
 }
 
-
-
-/* TODO */
-.dialogue {
-    position: absolute;
-    text-align: center;
-}
-
-#big-dialogue {
-    height: 100%;
-    width: 100%;
-}
-
-#big-dialogue-main {
-    width: 350px;
-    height: 90%;
-    background-color: white;
-    border-radius: 15px;
-}
-
-#big-dialogue-background {
+#instructions {
+    font-family: 'Heebo', sans-serif;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: #00000094;
-    position: absolute;
+    background-color: #00000060;
+    display: none; /*should be changed to flex when visible*/
+    flex-direction: column;
+}
+
+.dialogue-frame {
+    background-color: #f8f8f8;
+    box-shadow: 0 4px 23px 0 #000000c8;
+    width: 80%;
+    max-height: 90%;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialogue-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.dialogue-title {
+    font-size: 30px;
+    font-weight: 700;
 }
