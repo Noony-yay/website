@@ -49,6 +49,7 @@ function initializeHtml() {
   $('#submit-button').on('click', clickSubmit);
   // TODO: Load `settings` via ajax
   populateInitialBoard();
+  $('#instructions').on('click', () => {$('#instructions').hide();})
 }
 
 function populateInitialBoard() {
@@ -113,23 +114,24 @@ function clickSubmit() {
       item.attr('row', numRowsAlreadySolved).attr('col', n);
     });
   }
+  const solvedRow = $('<div class="solved-row fade-out">')
+  .attr('row', numRowsAlreadySolved)
+  .append($('<div class="solved-heading">')
+    .text(settings.groupDescriptors[solvedGroup][0]))
+  .append($('<div class="solved-items">')
+    .text(settings.groupDescriptors[solvedGroup][1]));
+  $('.grid-container').append(solvedRow);
   setTimeout(() => {
     $('.selected-item').addClass('fade-out');
+    $('.solved-row').removeClass('fade-out');
     // Show solved row.
-    const solvedRow = $('<div class="solved-row">')
-      .attr('row', numRowsAlreadySolved)
-      .append($('<div class="solved-heading">')
-        .text(settings.groupDescriptors[solvedGroup][0]))
-      .append($('<div class="solved-items">')
-        .text(settings.groupDescriptors[solvedGroup][1]));
-    $('.grid-container').append(solvedRow);
     setTimeout(() => {
       $('.selected-item').remove();
       if (numRowsAlreadySolved == 3) {
         // Victory!
         alert('כל הכבוד! ניצחת!');
       }
-    }, 250);
+    }, 350);
   }, numRowsAlreadySolved < 3 ? 750 : 0);
   return;
 }

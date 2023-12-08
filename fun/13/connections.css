@@ -58,7 +58,7 @@ body {
     justify-content: center;
     transition: background 250ms;
     cursor: pointer;
-    transition: left 750ms linear, top 750ms linear, opacity 250ms;
+    transition: left 750ms linear, top 750ms linear, opacity 350ms;
 }
 
 .grid-item[row="0"],.solved-row[row="0"] {
@@ -86,7 +86,7 @@ body {
     left: 285px;
 }
 
-.grid-item.fade-out {
+.fade-out {
     opacity: 0;
 }
 
@@ -106,6 +106,7 @@ body {
     flex-direction: column;
     line-height: 19px;
     background-color: #d0c4ff;
+    transition: opacity 350ms linear;
 }
 
 .solved-row + .solved-row {
@@ -202,11 +203,11 @@ body {
     width: 100%;
     height: 100%;
     background-color: #00000060;
-    display: none; /*should be changed to flex when visible*/
+    display: flex;
     flex-direction: column;
 }
 
-.dialogue-frame {
+.dialog-frame {
     background-color: #f8f8f8;
     box-shadow: 0 4px 23px 0 #000000c8;
     width: 80%;
@@ -218,7 +219,7 @@ body {
     flex-direction: column;
 }
 
-.dialogue-content {
+.dialog-content {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -227,7 +228,7 @@ body {
     overflow-y: auto;
 }
 
-.dialogue-title {
+.dialog-title {
     font-size: 30px;
     font-weight: 700;
 }
