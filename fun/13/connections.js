@@ -37,9 +37,12 @@ function initializeHtml() {
   for (let row = 0; row < 4; ++row) {
     for (let col = 0; col < 4; ++col) {
       $('.grid-container').append(
-        $('<div class="grid-item">').append(
-          $('<div class="item-text">')
-        ).on('click', clickItem)
+        $('<div>')
+          .addClass('grid-item')
+          .attr('row', row)
+          .attr('col', col)
+          .append($('<div class="item-text">'))
+          .on('click', clickItem)
       );
     }
   }
@@ -99,25 +102,36 @@ function clickSubmit() {
   }
 
   // Correct submission.
-  // TODO: Fancy animation magic.
-  $('.selected-item').remove();
-  const solvedRow = $('<div class="solved-row">')
-  solvedRow.append($('<div class="solved-heading">')
-    .text(settings.groupDescriptors[solvedGroup][0]));
-  solvedRow.append($('<div class="solved-items">')
-    .text(settings.groupDescriptors[solvedGroup][1]));
   const numRowsAlreadySolved = $('.solved-row').length;
-  if (numRowsAlreadySolved == 0) {
-    $('.grid-container').prepend(solvedRow);
-  } else {
-    solvedRow.insertAfter(
-      `.grid-container > div:nth-child(${numRowsAlreadySolved})`);
+  // Animate items, except for the last row.
+  if (numRowsAlreadySolved < 3) {
+    $('.selected-item').each((n, item) => {
+      item = $(item);
+      const swapItem = $(
+          `.grid-item[row="${numRowsAlreadySolved}"][col="${n}"]`);
+      swapItem.attr('row', item.attr('row')).attr('col', item.attr('col'));
+      item.attr('row', numRowsAlreadySolved).attr('col', n);
+    });
   }
-
-  if (numRowsAlreadySolved == 3) {
-    // Victory!
-    alert('כל הכבוד! ניצחת!');
-  }
+  setTimeout(() => {
+    $('.selected-item').addClass('fade-out');
+    // Show solved row.
+    const solvedRow = $('<div class="solved-row">')
+      .attr('row', numRowsAlreadySolved)
+      .append($('<div class="solved-heading">')
+        .text(settings.groupDescriptors[solvedGroup][0]))
+      .append($('<div class="solved-items">')
+        .text(settings.groupDescriptors[solvedGroup][1]));
+    $('.grid-container').append(solvedRow);
+    setTimeout(() => {
+      $('.selected-item').remove();
+      if (numRowsAlreadySolved == 3) {
+        // Victory!
+        alert('כל הכבוד! ניצחת!');
+      }
+    }, 250);
+  }, numRowsAlreadySolved < 3 ? 750 : 0);
+  return;
 }
 
 $(document).ready(initializeHtml);

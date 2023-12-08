@@ -32,17 +32,17 @@ body {
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 15px;
     background-color: #6488fc;
     padding: 15px;
     border-radius: 12px;
     font-weight: 300;
     width: 345px;
+    height: 345px;
+    position: relative;
 }
 
 .grid-item {
+    position: absolute;
     border-radius: 12px;
     background-color: #9bc4ff;
     border: 5px solid #9bc4ff;
@@ -58,12 +58,43 @@ body {
     justify-content: center;
     transition: background 250ms;
     cursor: pointer;
+    transition: left 750ms linear, top 750ms linear, opacity 250ms;
+}
+
+.grid-item[row="0"],.solved-row[row="0"] {
+    top: 15px;
+}
+.grid-item[row="1"],.solved-row[row="1"] {
+    top: 105px;
+}
+.grid-item[row="2"],.solved-row[row="2"] {
+    top: 195px;
+}
+.grid-item[row="3"],.solved-row[row="3"] {
+    top: 285px;
+}
+.grid-item[col="0"] {
+    left: 15px;
+}
+.grid-item[col="1"] {
+    left: 105px;
+}
+.grid-item[col="2"] {
+    left: 195px;
+}
+.grid-item[col="3"] {
+    left: 285px;
+}
+
+.grid-item.fade-out {
+    opacity: 0;
 }
 
 .solved-row {
+    position: absolute;
     border-radius: 12px;
     background-color: #9bc4ff;
-    width: 100%;
+    width: 345px;
     height: 75px;
     display: flex;
     text-align: center;
