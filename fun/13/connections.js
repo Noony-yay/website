@@ -47,6 +47,9 @@ function initializeHtml() {
     }
   }
   $('#submit-button').on('click', clickSubmit);
+  $('#deselect-button').on('click', () => {
+    $('.selected-item').removeClass('selected-item');
+  });
   // TODO: Load `settings` via ajax
   populateInitialBoard();
   $('#instructions').on('click', () => {$('#instructions').hide();})
@@ -98,7 +101,12 @@ function clickSubmit() {
   
   if (!allEqual) {
     // Incorrect submission.
-    alert('טעות בידך :(');
+    if ($('.mistake-circle').length > 1) {
+      alert('טעות בידך :(');
+      $('.mistake-circle:first').remove();
+      return;
+    }
+    showLossDialog();
     return;
   }
 
@@ -128,12 +136,31 @@ function clickSubmit() {
     setTimeout(() => {
       $('.selected-item').remove();
       if (numRowsAlreadySolved == 3) {
-        // Victory!
-        alert('כל הכבוד! ניצחת!');
+        showWinDialog();
       }
     }, 350);
   }, numRowsAlreadySolved < 3 ? 750 : 0);
   return;
+}
+
+function showLossDialog() {
+  showDialog('הפסדתם :(', 'לא נורא, נסו שוב בשבוע הבא.');
+}
+
+function showWinDialog() {
+  showDialog('נצחון!', 'כל הכבוד! חזרו אלינו בשבוע הבא.');
+}
+
+function showDialog(title, text) {
+  const dialog = $('<div class="dialog">')
+    .append($('<div class="dialog-frame">')
+      .append($('<div class="dialog-content">')
+        .append($('<div class="dialog-title">').text(title))
+        .append($('<div class="dialog-text">').text(text))
+        .append($('<div class="dialog-button">').text('אישור'))
+      )
+    );
+  $('body').append(dialog);
 }
 
 $(document).ready(initializeHtml);

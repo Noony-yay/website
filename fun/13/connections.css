@@ -194,7 +194,7 @@ body {
     margin: 3px;
 }
 
-#instructions {
+.dialog {
     font-family: 'Heebo', sans-serif;
     position: fixed;
     z-index: 1;
