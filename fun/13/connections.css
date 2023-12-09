@@ -5,7 +5,6 @@ body, html {
     font-family: 'Heebo', sans-serif !important;
 }
 body {
-    display: flex;
     justify-content: center;
     background-color: #9bc4ff;
     font-size: 18px !important;
@@ -14,21 +13,30 @@ body {
 
 #all {
     height: 100%;
-    width: 350px;
     display: flex;
     align-items: center;
     flex-direction: column;
     font-weight: 700;
+    justify-content: space-between;
 }
 
-.filler {
-    flex-grow: 1;
+#top {
+    height: 70px;
 }
 
 #main {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+#bottom {
+    height: 140px;
+    padding-bottom: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .grid-container {
@@ -137,7 +145,6 @@ body {
     border-width: 1px;
     margin-bottom: 20px;
     padding-top: 15px;
-    position: absolute;
     color: white;
 }
 
