@@ -103,8 +103,12 @@ function clickSubmit() {
   
   if (!allEqual) {
     // Incorrect submission.
-    $('.mistake-circle:first').remove();
-    if ($('.mistake-circle').length >= 1) {
+    $('.mistake-circle:first').animate(
+      {width: 0, height: 0},
+      400,
+      () => {$('.mistake-circle:first').remove();}
+    );
+    if ($('.mistake-circle').length > 1) {
       niceAlert('טעות בידך :(');
     } else {
       $('#no-mistakes-left').show();
@@ -170,6 +174,7 @@ function updateHtmlForSolvedRow(onFullySolved) {
 }
 
 function revealNextSolution() {
+  $('#reveal-next-button').text('המשך >>');
   $('.selected-item').removeClass('selected-item');
   // Choose which category to reveal this time.
   const revealedCategory =
