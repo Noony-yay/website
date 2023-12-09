@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: center;
     background-color: #9bc4ff;
-    font-size: 18px;
+    font-size: 18px !important;
     align-items: center;
 }
 
@@ -58,7 +58,7 @@ body {
     justify-content: center;
     transition: background 250ms;
     cursor: pointer;
-    transition: left 750ms linear, top 750ms linear, opacity 350ms;
+    transition: left 500ms linear, top 500ms linear, opacity 350ms;
 }
 
 .grid-item[row="0"],.solved-row[row="0"] {
@@ -181,6 +181,10 @@ body {
     margin: 3px;
 }
 
+#reveal-answers-text {
+    padding-top: 10px;
+}
+
 .dialog {
     position: fixed;
     z-index: 1;
@@ -226,6 +230,7 @@ body {
 
 button.mdl-button {
     font-family: 'Heebo';
+    font-size: 16px;
     border-radius: 4px;
 }
 
@@ -263,4 +268,8 @@ button.mdl-button--raised {
 .alert-text {
     font-size: 12pt;
     text-align: center;
+}
+
+.reveal-answers-mode {
+    display: none;
 }

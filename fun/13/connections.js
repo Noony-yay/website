@@ -53,6 +53,8 @@ function initializeHtml() {
   // TODO: Load `settings` via ajax
   populateInitialBoard();
   $('#instructions').on('click', () => {$('#instructions').hide();})
+  $('#reveal-next-button').on('click', revealNextSolution);
+  $('#show-lose-dialog-button').on('click', showLossDialog);
 }
 
 function populateInitialBoard() {
@@ -101,16 +103,40 @@ function clickSubmit() {
   
   if (!allEqual) {
     // Incorrect submission.
-    if ($('.mistake-circle').length > 1) {
+    $('.mistake-circle:first').remove();
+    if ($('.mistake-circle').length >= 1) {
       niceAlert('טעות בידך :(');
-      $('.mistake-circle:first').remove();
-      return;
+    } else {
+      $('#no-mistakes-left').show();
+      $('.mistake-container').css('font-weight', 300);
+      $('.play-button').hide();
+      $('.reveal-answers-mode').show();
     }
-    showLossDialog();
     return;
   }
 
   // Correct submission.
+  updateHtmlForSolvedRow(showWinDialog);
+}
+
+/**
+ * Take the four currently selected items, assume they are correct,
+ * animate them to the top available row, and replace them with a
+ * solved-item.
+ * @param onFullySolved Function to call after animation is complete,
+ *   but only if the board is now fully solved.
+ * @returns 
+ */
+function updateHtmlForSolvedRow(onFullySolved) {
+  const submittedAssignments = $('.selected-item').map(
+    (n, item) => settings.correctAssignments[$(item).text()]);
+  const solvedGroup = submittedAssignments[0];
+  const allEqual = [...submittedAssignments].every(
+    val => (val === solvedGroup));
+  if (!allEqual) {
+    alert('Internal error in updateHtmlForSolvedRow!');
+    return;
+  }
   const numRowsAlreadySolved = $('.solved-row').length;
   // Animate items, except for the last row.
   if (numRowsAlreadySolved < 3) {
@@ -136,11 +162,29 @@ function clickSubmit() {
     setTimeout(() => {
       $('.selected-item').remove();
       if (numRowsAlreadySolved == 3) {
-        showWinDialog();
+        onFullySolved();
       }
     }, 350);
-  }, numRowsAlreadySolved < 3 ? 750 : 0);
+  }, numRowsAlreadySolved < 3 ? 500 : 0);
   return;
+}
+
+function revealNextSolution() {
+  $('.selected-item').removeClass('selected-item');
+  // Choose which category to reveal this time.
+  const revealedCategory =
+      settings.correctAssignments[$('.grid-item:first').text()];
+  // Select all items from the correct category.
+  $('.grid-item').each((n, item) => {
+    item = $(item);
+    if (settings.correctAssignments[item.text()] == revealedCategory) {
+      item.addClass('selected-item');
+    }
+  });
+  updateHtmlForSolvedRow(() => {
+    $('.reveal-answers-mode').hide();
+    $('#show-lose-dialog-button-wrapper').show();
+  });
 }
 
 function showLossDialog() {
@@ -152,12 +196,18 @@ function showWinDialog() {
 }
 
 function showDialog(title, text) {
-  const dialog = $('<div class="dialog">')
-    .append($('<div class="dialog-frame">')
+  const dialog = $('<div class="dialog">');
+  dialog
+      .append($('<div class="dialog-frame">')
       .append($('<div class="dialog-content">')
         .append($('<div class="dialog-title">').text(title))
         .append($('<div class="dialog-text">').text(text))
-        .append($('<div class="dialog-button">').text('אישור'))
+        .append($('<div class="dialog-buttons">')
+          .append($('<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">')
+            .text('שיתוף')
+            .on('click', () => {dialog.hide();})
+          )
+        )
       )
     );
   $('body').append(dialog);

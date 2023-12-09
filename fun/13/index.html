@@ -41,18 +41,32 @@
                     <div class="mistake-circle"></div>
                     <div class="mistake-circle"></div>
                     <div class="mistake-circle"></div>
+                    <div id="no-mistakes-left" style="display:none;">&mdash;</div>
                 </div>
             </div>
+            <div id="reveal-answers-text" class="reveal-answers-mode">
+                רוצים לראות את הפתרון הנכון?
+            </div>
             <div class="buttons-container">
-                <button id="submit-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                <button id="submit-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     אישור
                 </button>
-                <button id="hint-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                <button id="hint-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     רמז
                 </button>
-                <button id="deselect-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                <button id="deselect-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     ביטול
                 </button>
+                <div class="reveal-answers-mode" id="reveal-next-button-wrapper">
+                    <button id="reveal-next-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        הרביעיה הבאה >>
+                    </button>
+                </div>
+                <div id="show-lose-dialog-button-wrapper" style="display: none;">
+                    <button id="show-lose-dialog-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        סיום
+                    </button>
+                </div>
             </div>
         </div>
         <div class="filler"></div>
