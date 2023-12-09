@@ -2,11 +2,14 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>חיבורים</title>
+    <title>קשר מרובע</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="connections.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;600;700&display=swap" rel="stylesheet"></head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="connections.js"></script>
@@ -16,7 +19,11 @@
             <div class="dialog-content">
                 <div class="dialog-title">קשר מרובע</div>
                 <div class="dialog-text">הוראות שנעמה הולכת לכתוב. נכון נעמה?</div>
-                <div id="start-button">זהו כפתור שצריך שיפוץ ל-CSS שלו</div>
+                <div class="dialog-buttons">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        בואו נתחיל!
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -37,12 +44,23 @@
                 </div>
             </div>
             <div class="buttons-container">
-                <div class="button" id="submit-button">אישור</div>
-                <div class="button" id="hint-button">רמז</div>
-                <div class="button" id="deselect-button">ביטול</div>
+                <button id="submit-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    אישור
+                </button>
+                <button id="hint-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    רמז
+                </button>
+                <button id="deselect-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    ביטול
+                </button>
             </div>
         </div>
         <div class="filler"></div>
+    </div>
+    <div class="alert" id="alert" style="opacity: 0; display: none;">
+        <div class="alert-content">
+            <div class="alert-text" id="alert-text"></div>
+        </div>
     </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ body, html {
     height: 100%;
     width: 100%;
     margin: auto;
+    font-family: 'Heebo', sans-serif !important;
 }
 body {
     display: flex;
@@ -16,7 +17,6 @@ body {
     width: 350px;
     display: flex;
     align-items: center;
-    font-family: 'Heebo', sans-serif;
     flex-direction: column;
     font-weight: 700;
 }
@@ -93,32 +93,31 @@ body {
 .solved-row {
     position: absolute;
     border-radius: 12px;
-    background-color: #9bc4ff;
     width: 345px;
     height: 75px;
     display: flex;
     text-align: center;
     align-items: center;
-    box-shadow: 3px 3px 4px 0px #00000075;
     justify-content: center;
     cursor: default;
     grid-column-end: span 4;
     flex-direction: column;
     line-height: 19px;
-    background-color: #d0c4ff;
+    color: #fff;
+    background-color: #0019d0;
     transition: opacity 350ms linear;
 }
 
 .solved-row + .solved-row {
-    background-color: #b2a0ff;
+    background-color: #3848c9;
 }
 
 .solved-row + .solved-row + .solved-row {
-    background-color: #9178ff;
+    background-color: #515fc7;
 }
 
 .solved-row + .solved-row + .solved-row + .solved-row {
-    background-color: #7859ff;
+    background-color: #727dcc;
 }
 
 .solved-heading {
@@ -148,19 +147,7 @@ body {
     align-items: center;
     justify-content: center;
     padding-top: 20px;
-}
-
-.button {
-    background-color: #d5d5d5;
-    border-radius: 5px;
-    margin: 0px 25px;
-    width: 60px;
-    height: 30px;
-    padding: 5px 15px;
-    text-align: center;
-    line-height: 30px;
-    box-shadow: 3px 3px 4px 0px #00000075;
-    cursor: pointer;
+    gap: 20px;
 }
 
 .unclickable {
@@ -195,7 +182,6 @@ body {
 }
 
 .dialog {
-    font-family: 'Heebo', sans-serif;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -231,4 +217,50 @@ body {
 .dialog-title {
     font-size: 30px;
     font-weight: 700;
+    line-height: 35px;
+}
+
+.dialog-buttons {
+    padding-top: 10px;
+}
+
+button.mdl-button {
+    font-family: 'Heebo';
+    border-radius: 4px;
+}
+
+button.mdl-button--raised {
+    background: rgba(158,158,158,.2);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,.14),0 6px 2px -4px rgba(0,0,0,.2),0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.alert {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    transition: visibility 1s;
+}
+
+.alert-content {
+    background-color: #670bbb;
+    color: #fff;
+    box-shadow: 0 4px 23px 0 #000000c8;
+    width: 80%;
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.alert-text {
+    font-size: 12pt;
+    text-align: center;
 }

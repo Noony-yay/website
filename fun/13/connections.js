@@ -88,7 +88,7 @@ function clickItem(evt) {
 
 function clickSubmit() {
   if ($('.selected-item').length != 4) {
-    alert('יש לבחור ארבע מילים ואז ללחוץ על "אישור".');
+    niceAlert('יש לבחור ארבע מילים ואז ללחוץ על "אישור".');
     return;
   }
   // Collect the correct assignment for each selected item.
@@ -102,7 +102,7 @@ function clickSubmit() {
   if (!allEqual) {
     // Incorrect submission.
     if ($('.mistake-circle').length > 1) {
-      alert('טעות בידך :(');
+      niceAlert('טעות בידך :(');
       $('.mistake-circle:first').remove();
       return;
     }
@@ -161,6 +161,14 @@ function showDialog(title, text) {
       )
     );
   $('body').append(dialog);
+}
+
+function niceAlert(text) {
+  $('#alert-text').text(text);
+  $('#alert').css('opacity', 1).show();
+  setTimeout(() => {
+    $('#alert').animate({opacity: 0}, {complete: () => $('#alert').hide()});
+  }, 2500);
 }
 
 $(document).ready(initializeHtml);
