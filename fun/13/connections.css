@@ -64,9 +64,8 @@ body {
     align-items: center;
     box-shadow: 3px 3px 4px 0px #00000075;
     justify-content: center;
-    transition: background 250ms;
     cursor: pointer;
-    transition: left 500ms linear, top 500ms linear, opacity 350ms;
+    transition: left 500ms linear, top 500ms linear, opacity 350ms linear, background 250ms linear;
 }
 
 .grid-item[row="0"],.solved-row[row="0"] {
@@ -92,6 +91,37 @@ body {
 }
 .grid-item[col="3"] {
     left: 285px;
+}
+
+.hint-connector {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background-color: #9bc4ff;
+    z-index: 1;
+    transition: left 500ms linear, top 500ms linear, opacity 500ms linear;
+}
+
+.hint-connector[row="0"] {
+    top: 40px;
+}
+.hint-connector[row="1"] {
+    top: 130px;
+}
+.hint-connector[row="2"] {
+    top: 220px;
+}
+.hint-connector[row="3"] {
+    top: 310px;
+}
+.hint-connector[col="0"] {
+    left: 90px;
+}
+.hint-connector[col="1"] {
+    left: 180px;
+}
+.hint-connector[col="2"] {
+    left: 270px;
 }
 
 .fade-out {
