@@ -51,10 +51,10 @@ function initializeHtml() {
   }
   $('#submit-button').on('click', clickSubmit);
   $('#hint-button').on('click', clickHint);
-  $('#deselect-button').on('click', deselectAll);
   // TODO: Load `settings` via ajax
   populateInitialBoard();
-  $('#instructions').on('click', () => {$('#instructions').hide();})
+  $('#instructions').on('click', () => {$('#instructions').hide();});
+  $('#instructions-button').on('click', () => {$('#instructions').show();});
   $('#reveal-next-button').on('click', revealNextSolution);
   $('#show-lose-dialog-button').on('click', showLossDialog);
 }
@@ -334,19 +334,21 @@ function clickHint() {
     addHintConnector(targetRow, targetCol);
   } else {
     // Both words have been revealed, but not to each other.
-    const targetRow = matchWords[0] + $('.solved-row').length;
-    for (let i = 0; i < hints[matchWords[1]].length; ++i) {
-      hints[matchWords[0]].push(hints[matchWords[1]][i]);
-      const source = $(`.grid-item:contains(${hints[matchWords[1]][i]})`);
+    const targetIdx = Math.min(matchWords[0], matchWords[1]);
+    const sourceIdx = Math.max(matchWords[0], matchWords[1]);
+    const targetRow = targetIdx + $('.solved-row').length;
+    for (let i = 0; i < hints[sourceIdx].length; ++i) {
+      hints[targetIdx].push(hints[sourceIdx][i]);
+      const source = $(`.grid-item:contains(${hints[sourceIdx][i]})`);
       const sourceRow = source.attr('row');
       const sourceCol = source.attr('col');
       removeHintConnector(sourceRow, sourceCol);
-      const targetCol = 4 - hints[matchWords[0]].length;
+      const targetCol = 4 - hints[targetIdx].length;
       swapGridItems(
         sourceRow, sourceCol, targetRow, targetCol);
       addHintConnector(targetRow, targetCol);
     }
-    hints.splice(matchWords[1], 1);
+    hints.splice(sourceIdx, 1);
   }
 }
 
