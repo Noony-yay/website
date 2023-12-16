@@ -1,6 +1,7 @@
 'use strict';
 
 const settings = {
+  gameNumber: 0,
   initialBoard: [
     [ 'לוי', 'כהן', 'דליה', 'שושנה' ],
     [ 'חפציבה', 'נורית', 'גד', 'חניתה' ],
@@ -33,8 +34,25 @@ const settings = {
   ],
 };
 
+const howManyMistakes = {
+  0: 'ללא טעויות',
+  1: 'עם טעות אחת',
+  2: 'עם שתי טעויות',
+  3: 'עם שלוש טעויות',
+  4: 'עם ארבע טעויות',
+}
+
+const howManyHints = {
+  0: 'ללא רמזים',
+  1: 'עם רמז אחד',
+  2: 'עם שני רמזים',
+  3: 'עם שלושה רמזים',
+}
+
 // List of tuples of words already revealed to be in the same quartet.
 var hints = [];
+var numHints = 0;
+var numMistakes = 0;
 
 function initializeHtml() {
   for (let row = 0; row < 4; ++row) {
@@ -95,6 +113,10 @@ function clickItem(evt) {
 }
 
 function clickSubmit() {
+  // Avoid double-clicks and clicks before the previous animation is done.
+  $('#submit-button').prop('disabled', true);
+  setTimeout(() => {$('#submit-button').prop('disabled', false);}, 500);
+
   if ($('.selected-item').length != 4) {
     niceAlert('יש לבחור ארבע מילים ואז ללחוץ על "אישור".');
     return;
@@ -110,6 +132,7 @@ function clickSubmit() {
   if (!allEqual) {
     // Incorrect submission.
     const lifesLeft = $('.mistake-circle').length - 1;
+    ++numMistakes;
     removeOneLife();
     if (lifesLeft > 0) {
       niceAlert('טעות בידך :(');
@@ -211,6 +234,9 @@ function updateHtmlForSolvedRow(onFullySolved) {
 }
 
 function revealNextSolution() {
+  // Avoid double-clicks and clicks before the previous animation is done.
+  $('#reveal-next-button').prop('disabled', true);
+  setTimeout(() => {$('#reveal-next-button').prop('disabled', false);}, 1000);
   $('#reveal-next-button').text('המשך >>');
   $('.selected-item').removeClass('selected-item');
   // Choose which category to reveal this time.
@@ -247,12 +273,42 @@ function showDialog(title, text) {
         .append($('<div class="dialog-buttons">')
           .append($('<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">')
             .text('שיתוף')
-            .on('click', () => {dialog.hide();})
+            .on('click', shareResult)
           )
         )
       )
     );
   $('body').append(dialog);
+}
+
+function shareResult() {
+  let shareString = '';
+  const lifesLeft = $('.mistake-circle').length;
+  if (lifesLeft > 0) {
+    shareString += 'ניחצתי ';
+  } else {
+    shareString += 'הפסדתי ';
+  }
+  shareString += `במשחק "קשר מרובע" מספר ${settings.gameNumber} `;
+  shareString += howManyMistakes[numMistakes];
+  shareString += ' ו';
+  shareString += howManyHints[numHints];
+  shareString += '\n';
+
+  const shareData = {
+    title: 'קשר מרובע',
+    text: shareString,
+    url: 'https://milotayim.com/kesher',
+  }
+
+  if (navigator.canShare && navigator.canShare({text: 'myText'})) {
+    navigator.share(shareData);
+  } else {
+    navigator.clipboard.writeText(shareData.text + shareData.url).then(
+      () => { niceAlert('הטקסט הועתק. עברו לאפליקציה אחרת ובחרו "הדבק".'); },
+      () => { niceAlert('לא ניתן לשתף בדפדפן זה.')}
+    )
+  }
 }
 
 function niceAlert(text) {
@@ -286,6 +342,7 @@ function clickHint() {
   if (settings.correctAssignments[selectedWords[0]] != 
       settings.correctAssignments[selectedWords[1]]) {
     removeOneLife();
+    ++numHints;
     niceAlert(`המילים "${selectedWords[0]}" ו"${selectedWords[1]}" אינן שייכות לאותה רביעייה.`);
     return;
   }
@@ -303,6 +360,7 @@ function clickHint() {
     return;
   }
   removeOneLife();
+  ++numHints;
 
   if (matchWords[0] == -1 && matchWords[1] == -1) {
     // Neither word has been revealed until now.
