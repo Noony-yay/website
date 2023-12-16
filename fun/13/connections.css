@@ -178,6 +178,12 @@ body {
     color: white;
 }
 
+.logo-image {
+    height: 20px;
+    padding: 3px;
+    padding-top: 0px;
+}
+
 .buttons-container {
     display: flex;
     width: 375px;
