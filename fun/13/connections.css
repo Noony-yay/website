@@ -252,18 +252,31 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
     overflow-y: auto;
 }
 
 .dialog-title {
-    font-size: 30px;
+    font-size: 20px;
+    color: #2e71df;
     font-weight: 700;
     line-height: 35px;
+    text-align: center;
+}
+
+.dialog-text {
+    font-size: 14px;
+    line-height: 18px;
 }
 
 .dialog-buttons {
     padding-top: 10px;
+    align-self: center;
+}
+
+.dialog-text ul {
+    line-height: 18px;
+    font-size: 14px;
+    padding-right: 20px;
 }
 
 button.mdl-button {
