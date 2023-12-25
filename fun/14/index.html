@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>הצעה לקשר מרובע</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="suggestions.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;600;700&display=swap" rel="stylesheet"></head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="connections.js"></script>
+<body>
+    <div id="all">
+        <div id="top">
+            <div class="logo-bar">
+                קשר<img src="tie-white.png" class="logo-image">מרובע
+            </div>
+        </div>
+        <div id="main">
+            <div class="grid-container">
+                <div class="solved-row" row="0">
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input input" type="text" id="row1">
+                            <label class="mdl-textfield__label label" for="row1">קשר...</label>
+                        </div>
+                    </form>
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input input" type="text" id="row1">
+                            <label class="mdl-textfield__label label" for="row1">מילים</label>
+                        </div>
+                    </form>      
+                </div>
+                <div class="solved-row" row="1">
+                    <div class="solved-heading">איזורי הארץ</div>
+                    <div class="solved-items">ערבה, גולן, נגב, שרון</div>
+                </div>
+                <div class="solved-row" row="2">
+                    <div class="solved-heading">נשים הידועות רק בשמן הפרטי</div>
+                    <div class="solved-items">רחל, ריטה, נטע, אדל</div>
+                </div>
+                <div class="solved-row" row="3">
+                    <div class="solved-heading">סוגי שמן צמחי</div>
+                    <div class="solved-items">סויה, קנולה, תירס, חמניות</div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            <div class="buttons-container">
+                <button id="submit-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-upgraded=",MaterialButton,MaterialRipple">
+                    שלח
+                <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 150.443px; height: 150.443px; transform: translate(-50%, -50%) translate(27px, 28px);"></span></span></button>
+                <button id="hint-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-upgraded=",MaterialButton,MaterialRipple">
+                    רמז
+                <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                <button id="instructions-button" class="play-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-upgraded=",MaterialButton,MaterialRipple">
+                    הוראות
+                <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+            </div>
+        </div>
+    </div>
+</body>
