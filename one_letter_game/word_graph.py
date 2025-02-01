@@ -60,20 +60,28 @@ def find_word_in_graph(graph: graph.Graph, word_str: str) -> Word:
     # a correlating Word object in the graph.
     raise ValueError(f"String '{word_str}' is not a real word.")
 
-def find_path(graph: graph.Graph, start: str, end: str) -> bool:
+def find_path(graph: graph.Graph, start: str, end: str) -> list[str]:
     # TODO: return the path and not just bool
     start = find_word_in_graph(graph, start)
     end = find_word_in_graph(graph, end)
-    queue: list[Word] = [start]
-    visited: set[Word] = set()
+    queue: list[tuple[Word, Word]] = [(start, "start")]
+    visited = {}
     current: Word = ...
     while current != end and queue != []:
-        current = queue.pop(0)
-        visited.add(current)
+        current, previous = queue.pop(0)
+        if current in visited:
+            continue
+
+        visited[current] = previous
         for neighbor in current.neighbors:
             if neighbor in visited:
                 continue
-            queue.append(neighbor)
-    if current == end:
-        return True
-    return False
+            queue.append((neighbor, current))
+    if current != end:
+        return []
+    path = []
+    while current != start:
+        path.append(current.word)
+        current = visited[current]
+    path.append(start.word)
+    return path[::-1]
