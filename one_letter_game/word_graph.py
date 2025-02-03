@@ -61,27 +61,53 @@ def find_word_in_graph(graph: graph.Graph, word_str: str) -> Word:
     raise ValueError(f"String '{word_str}' is not a real word.")
 
 def find_path(graph: graph.Graph, start: str, end: str) -> list[str]:
-    # TODO: return the path and not just bool
+    '''Finds the shortest path between two given words using BFS.
+    
+    @returns:
+        Path between start and end words as a list of strings.
+        Empty list if end is not reachable.
+    '''
+
+    # Converting the words (given as strings) to Word objects
     start = find_word_in_graph(graph, start)
     end = find_word_in_graph(graph, end)
+
     queue: list[tuple[Word, Word]] = [(start, "start")]
+    # Queue is going to look like this: [(word, word it came from), ...].
+
     visited = {}
+    # Visited is going to look like this: {word: word it came from, ...}.
+    
     current: Word = ...
+
+    # If current is end: we reached the end word.
+    # If queue is empty: we went through all the nodes we can reach and
+    #                    didn't reach the end word, meaning it's not reachable.
     while current != end and queue != []:
         current, previous = queue.pop(0)
         if current in visited:
+            # Means we already found a faster way to reach it and we don't
+            # want to overrun it.
             continue
-
         visited[current] = previous
+
         for neighbor in current.neighbors:
             if neighbor in visited:
+                # Means there is a faster way to reach it.
                 continue
             queue.append((neighbor, current))
+    
     if current != end:
+        # Means we couldn't find a way to reach end.
         return []
+    
+    # Finding the path using the dictionary visited
     path = []
     while current != start:
         path.append(current.word)
         current = visited[current]
     path.append(start.word)
+    
+    # Because we go from the end to the start, the list will be reversed.
+    # For convenience, we reverse it back before returning.
     return path[::-1]
