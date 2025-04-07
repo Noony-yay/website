@@ -111,3 +111,59 @@ def find_path(graph: graph.Graph, start: str, end: str) -> list[str]:
     # Because we go from the end to the start, the list will be reversed.
     # For convenience, we reverse it back before returning.
     return path[::-1]
+
+def find_furthest_word(start_word: Word) -> tuple[Word, int, set[Word]]:
+    '''
+    Finds the word furthest away from the given word.
+
+    @returns: a tuple containing the word furthest away,
+              its distance from the starting word,
+              and the set of words that are connected to start_word.
+    '''
+    
+    queue: list[tuple[Word, int]] = [(start_word, 0)]
+    # Queue is going to look like this: [(word, distance from start_word)]
+
+    visited: set[Word] = set()
+
+    current: Word = ...
+    cur_dist: int = ...
+
+    while queue != []:
+        current, cur_dist = queue.pop(0)
+        visited.add(current)
+        for neighbor in current.neighbors:
+            if neighbor in visited:
+                continue
+            queue.append((neighbor, cur_dist+1))
+    
+    return (current, cur_dist, visited)
+
+def find_two_furthest_words(g: graph.Graph) -> tuple[Word, Word, int]:
+    '''
+    Finds the two words furthest away from each other in the entire graph.
+
+    @returns: a tuple containing the two furthest words and the distance
+              between them.
+    '''
+
+    visited: set[Word] = set()
+    max_dist = -1
+    furthest_words: tuple[Word, Word] = ...
+
+    while len(visited) != len(g.nodes):
+        for start in g.nodes:
+            if start not in visited:
+                break
+
+        first_endpoint, _, current_visited = find_furthest_word(start)
+        second_endpoint, dist, _ = find_furthest_word(first_endpoint)
+
+        visited.update(current_visited)
+
+        if dist > max_dist:
+            max_dist = dist
+            furthest_words = (first_endpoint, second_endpoint)
+            print(f"Found new best: {max_dist=}, {furthest_words=}")
+    
+    return (furthest_words[0], furthest_words[1], max_dist)
