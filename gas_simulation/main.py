@@ -25,23 +25,46 @@ class Molecule:
             self.vz *= -1
             self.num_collisions += 1
 
+    def calc_kinetic_energy(self) -> float:
+        vsquared = self.vx**2 + self.vy**2 + self.vz**2
+        return (mol_mass * vsquared) / 2 # joules
+
+class Simulator:
+    def __init__(self):
+        self.mols: list[Molecule] = []
+    
+    def calc_collisions_per_sec(self) -> float:
+        total_collisions = sum([mol.num_collisions for mol in self.mols])
+        return total_collisions / simulation_duration
+    
+    def calc_heat(self) -> float:
+        return sum([mol.calc_kinetic_energy() for mol in self.mols]) # joules
+    
+    def calc_temp(self) -> float:
+        return self.calc_heat() / len(self.mols) / BOLTZMANN # kelvin
+
+
 length = 1 # meters
 num_mols = 1000
-vmax = 0.1 # meters per second
+vmax = 419 # meters per second
+mol_mass = 2.3259e-26 * 2 # kilograms - weight of nitrogen mol
+BOLTZMANN = 1.380649e-23 # joules / kelvin
+
 step_duration = 0.1 # seconds
 simulation_duration = 100 # seconds
 
 def main():
-    simulator: list[Molecule] = []
+    main_simulator = Simulator()
     current_time = 0 # seconds since start
     for i in range(num_mols):
-        simulator.append(Molecule(length, vmax))
+        main_simulator.mols.append(Molecule(length, vmax))
     while current_time < simulation_duration:
-        for mol in simulator:
+        for mol in main_simulator.mols:
             mol.update(length, step_duration)
         current_time += step_duration
-    total_collisions = sum([mol.num_collisions for mol in simulator])
-    collisions_per_second = total_collisions / simulation_duration
-    print(f"{collisions_per_second:.2f} collisions per second.")
+    print(f"{main_simulator.calc_collisions_per_sec():.2f} collisions per second.")
+    print(f"Heat: {main_simulator.calc_heat():.3g} joules.")
+    temp = main_simulator.calc_temp()
+    print(f"Temperature: {temp:.2f} kelvin ({(temp - 273.15):.2f} celsius).")
 
 main()
